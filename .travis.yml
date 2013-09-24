@@ -4,4 +4,4 @@ python:
 # command to install dependencies
 install: "pip install -r requirements.txt --use-mirrors"
 # command to run tests
-script: "nosetests --config=.roserc tests/ && pylint --rcfile=.pylintrc source/"
+script: "nosetests --config=.roserc tests/"
