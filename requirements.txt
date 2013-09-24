@@ -1,2 +1,1 @@
 Flask==0.10.1
-gevent-socketio==0.3.5-rc2
