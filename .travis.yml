@@ -5,3 +5,5 @@ python:
 install: "pip install -r requirements.txt --use-mirrors"
 # command to run tests
 script: "nosetests --config=.roserc tests/"
+notifications:
+  email: false
