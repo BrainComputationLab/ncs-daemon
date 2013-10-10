@@ -1,9 +1,10 @@
 """ Runs the Flask server for the REST interface """
 from flask import Flask
 from flask.ext.restful import Api
+import resources
 
 def register_resources(api):
-    pass
+    api.add_resource(resources.Model)
 
 def register_routes(app):
     @app.route('/auth/requestToken')
