@@ -1,0 +1,104 @@
+{
+    "id": "hf91023hf80hfkalh8fgf3892p",
+    "entity_type": "model",
+    "type_name": "BasalGanglia",
+    "description": "This is an extended description of the model",
+    "author": "Who wrote this model",
+    "email": "Author's Email",
+    "organization": "Organization the author is affiliated with",
+    "website": "website for the organization/author",
+    "geometry": {
+        "width": 100,
+        "height": 200,
+        "depth": 300
+    },
+    "submodels": [
+        {
+            "id": "mfr9023vnfj834ytnuhf78934y9",
+            "label": "Striatum",
+            "location": {
+                "x": 123,
+                "y": 456,
+                "z": 789
+            }
+        },
+        {
+            "id": "cj723890hvpaywpe9rhv312",
+            "label": "Pallidum",
+            "location": {
+                "x": 234,
+                "y": 456,
+                "z": 543
+            }
+        }
+    ],
+    "cell_groups": [
+        {
+            "id": "hc3012gh7r70123ygf001g",
+            "label": "GPe",
+            "geometry": {
+                "width": 100,
+                "height": 200,
+                "depth": 300
+            },
+            "location": {
+                "x": 234,
+                "y": 456,
+                "z": 543
+            }
+        },
+        {
+            "id": "vb84910b34hrvpahweuytf",
+            "label": "GPi",
+            "geometry": {
+                "width": 100,
+                "height": 200,
+                "depth": 300
+            },
+            "location": {
+                "x": 784,
+                "y": 926,
+                "z": 999
+            }
+        }
+    ],
+    "aliases": {
+        "model_aliases": [
+            {
+                "alias": "GPx",
+                "labels": [
+                    "GPe",
+                    "GPi"
+                ]
+            }
+        ],
+        "synaptic_aliases": [
+            {
+                "alias": "sample_synapse_alias",
+                "labels": [
+                    "GP_synapse"
+                ]
+            }
+        ]
+    },
+    "synapses": [
+        {
+            "label": "GP_synapse",
+            "presynaptic_alias": "GPe",
+            "postsynaptic_alias": "GPi",
+            "probability": 0.5,
+            "synapse_parameters": {
+                "type": "flat",
+                "current": {
+                    "type": "uniform",
+                    "min_value": -1.0,
+                    "max_value": 1.0
+                },
+                "delay": {
+                    "type": "exact",
+                    "value": 5
+                }
+            }
+        }
+    ]
+}
