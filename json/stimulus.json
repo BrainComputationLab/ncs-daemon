@@ -1,0 +1,11 @@
+{
+    "id": "asg9v8dfya9ssdcgyf82",
+    "entity_type": "stimulus",
+    "stimulus_method": "current",
+    "stimulus_input": {
+        "input_type": "network",
+        "port": 7070
+    },
+    "time_start": 612789,
+    "time_end": 1378454
+}

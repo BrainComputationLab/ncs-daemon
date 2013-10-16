@@ -1,7 +1,7 @@
 {
     "id": "hf91023hf80hfkalh8fgf3892p",
     "entity_type": "model",
-    "type_name": "BasalGanglia",
+    "name": "BasalGanglia",
     "description": "This is an extended description of the model",
     "author": "Who wrote this model",
     "email": "Author's Email",
@@ -81,23 +81,28 @@
             }
         ]
     },
-    "synapses": [
+    "connections": [
         {
-            "label": "GP_synapse",
-            "presynaptic_alias": "GPe",
-            "postsynaptic_alias": "GPi",
-            "probability": 0.5,
-            "synapse_parameters": {
-                "type": "flat",
-                "current": {
-                    "type": "uniform",
-                    "min_value": -1.0,
-                    "max_value": 1.0
-                },
-                "delay": {
-                    "type": "exact",
-                    "value": 5
-                }
+            {
+                "presynaptic": "GPe",
+                "postsynaptic": "GPi",
+                "probability": 0.5,
+                "synapse": "8432ch82374cvqop",
+                "recurrent": false
+            },
+            {
+                "presynaptic": "GPe:Excitatory_Cells_1",
+                "postsynaptic": "GPx:[Inhibitory]",
+                "probability": 0.5,
+                "synapse": "8432ch82374cvqop",
+                "recurrent": false
+            },
+            {
+                "presynaptic": "GPi:[Inhibitory]",
+                "postsynaptic": "GPi:{Excitatory}",
+                "probability": 0.5,
+                "synapse": "8432ch82374cvqop",
+                "recurrent": false
             }
         }
     ]

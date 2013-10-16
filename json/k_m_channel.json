@@ -1,0 +1,25 @@
+{
+    "id": "bv7rv802123brvuyr0"
+    "entity_type": "channel",
+    "channel_type": "k-m",
+    "channel_parameters": {
+        "m_initial": {
+            "mean": 0.0,
+            "standard_deviation": 0.0
+        },
+        "reveral_potential": {
+            "mean": 0.0,
+            "standard_deviation": 0.0
+        },
+        "unitary_g": {
+            "_comment": "What is this?"
+            "mean": 0.0,
+            "standard_deviation": 0.0
+        },
+        "strength": {
+            "_comment": "What is this?"
+            "mean": 0.0,
+            "standard_deviation": 0.0
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "id": "bh190gp97atsd7fga9s",
+    "entity_type": "report",
+    "reporting_alias": "GPe:[Excitatory]",
+    "probability": 0.5,
+    "cell_ordering": "random",
+    "frequency": 5,
+    "report_type": {
+        "type": "channel_km",
+        "channel": "23hfo9geoaygsidfy9sd"
+    },
+    "report_method": {
+        "method": "file",
+        "filename": "out.txt",
+        "number_format": "ascii"
+    }
+    "time_start": 1234,
+    "time_end": 8901
+}

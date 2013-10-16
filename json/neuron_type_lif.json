@@ -1,0 +1,69 @@
+{
+    "id": "hrqw8e90ghvba80spduf",
+    "entity_type": "neuron",
+    "specification": {
+        "type": "lif",
+        "parameters": {
+            "_comment": "TODO: Figure out these paramers are"
+            "spikeshape": [
+                -12,
+                0,
+                5,
+                60,
+                70,
+                20,
+                23
+            ],
+            "membrane_resistance": {
+                "mean": 200,
+                "standard_deviation": 0
+            },
+            "membrane_tau": {
+                "mean": 0.015,
+                "standard_deviation": 0
+            },
+            "membrane_threshold": {
+                "mean": 65,
+                "standard_deviation": 0
+            },
+            "leak_conductance": {
+                "mean": 65,
+                "standard_deviation": 0
+            },
+            "leak_reversal": {
+                "mean": 65,
+                "standard_deviation": 0
+            },
+            "resting_potential": {
+                "mean": 65,
+                "standard_deviation": 0
+            },
+            "ca_internal": {
+                "mean": 65,
+                "standard_deviation": 0
+            },
+            "ca_external": {
+                "mean": 65,
+                "standard_deviation": 0
+            },
+            "ca_spike_increment": {
+                "mean": 65,
+                "standard_deviation": 0
+            },
+            "ca_tau": {
+                "mean": 65,
+                "standard_deviation": 0
+            },
+            "channels": [
+                {
+                    "id": "gvb127930g6f01gef",
+                    "count": 4
+                },
+                {
+                    "id": "8945hg89whfgs8vh9",
+                    "count": 4
+                }
+            ]
+        }
+    }
+}
