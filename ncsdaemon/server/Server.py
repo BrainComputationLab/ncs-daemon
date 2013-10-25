@@ -13,6 +13,7 @@ def register_routes(app):
 
 class Server(object):
     """ Rest server class """
+
     def run(self):
         """ Runs the REST server """
         self.app.run()

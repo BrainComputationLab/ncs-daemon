@@ -33,7 +33,8 @@ class UserManager(object):
     def create_user(self, username, first_name, last_name, email, password):
         salt = Crypt.generate_salt()
         hashed_password = Crypt.hash_password(password, salt)
-        user = User(username, first_name, last_name, email, salt, hashed_password)
+        api_key = Crypt.generate_api_key()
+        user = User(username, first_name, last_name, email, salt, hashed_password, api_key)
         self.users.append(user)
         self.save_users_file(self.USERS_FILENAME)
 
