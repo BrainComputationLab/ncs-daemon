@@ -1,12 +1,9 @@
 {
-    "id": "hf91023hf80hfkalh8fgf3892p",
     "entity_type": "model",
     "name": "BasalGanglia",
     "description": "This is an extended description of the model",
     "author": "Who wrote this model",
     "email": "Author's Email",
-    "organization": "Organization the author is affiliated with",
-    "website": "website for the organization/author",
     "geometry": {
         "width": 100,
         "height": 200,

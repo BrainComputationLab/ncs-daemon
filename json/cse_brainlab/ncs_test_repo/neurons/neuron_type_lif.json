@@ -1,0 +1,69 @@
+{
+    "id": "hrqw8e90ghvba80spduf",
+    "entity_type": "neuron",
+    "specification": {
+        "type": "lif",
+        "parameters": {
+            "_comment": "TODO: Figure out these paramers are"
+            "spikeshape": [
+                -12,
+                0,
+                5,
+                60,
+                70,
+                20,
+                23
+            ],
+            "threshhold": {
+                "type": "exact",
+                "value": 65.0
+            },
+            "resting_potential": {
+                "type": "uniform",
+                "min": -23.0,
+                "max": -30.0
+            },
+            "initial_calcium": {
+                "type": "normal",
+                "mean": 6.0,
+                "standard_deviation": 0.5
+            },
+            "calcium_spike_increment": {
+                "type": "exact",
+                "value": 65.0
+            },
+            "tau_calcium": {
+                "_comment": "Rename this",
+                "type": "exact",
+                "value": 65.0
+            },
+            "leak_reversal_potential": {
+                "type": "exact",
+                "value": 65.0
+            },
+            "leak_conductance": {
+                "type": "exact",
+                "value": 65.0
+            },
+            "tau_membrane": {
+                "_comment": "Rename this",
+                "type": "exact",
+                "value": 65.0
+            },
+            "membrane_resistance": {
+                "type": "exact",
+                "value": 65.0
+            },
+            "channels": [
+                {
+                    "id": "gvb127930g6f01gef",
+                    "count": 4
+                },
+                {
+                    "id": "8945hg89whfgs8vh9",
+                    "count": 4
+                }
+            ]
+        }
+    }
+}

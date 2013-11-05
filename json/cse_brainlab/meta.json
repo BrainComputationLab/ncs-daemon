@@ -1,0 +1,11 @@
+{
+    "organization": "University of Nevada",
+    "contacts": [
+        {
+            "name": "Nathan Jordan",
+            "email": "njordan@cse.unr.edu"
+        }
+    ],
+    "website": "http://brainlab.cse.unr.edu/",
+    "repository_url": "http://brainlab.cse.unr.edu/modeldb/"
+}
