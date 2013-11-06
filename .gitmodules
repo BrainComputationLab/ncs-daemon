@@ -1,0 +1,3 @@
+[submodule "ncs"]
+	path = ncs
+	url = https://github.com/BrainComputationLab/ncs.git
