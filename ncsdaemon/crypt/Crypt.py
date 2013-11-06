@@ -1,8 +1,9 @@
 """ Handles cryptography for the server """
 import os
 import hashlib
+import CryptBase
 
-class Crypt(object):
+class Crypt(CryptBase):
     """ Class that handles cryptographic functions needed by the server """
 
     @classmethod
@@ -12,6 +13,11 @@ class Crypt(object):
     @classmethod
     def generate_salt(cls):
         """ Generates a random salt for password encryption """
+        return os.urandom(8).encode('hex')
+
+    @classmethod
+    def generate_api_key(cls):
+        """ Generates a random api key """
         return os.urandom(8).encode('hex')
 
     @classmethod

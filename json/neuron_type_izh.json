@@ -1,0 +1,39 @@
+{
+    "id": "hrqw8e90ghvba80spduf",
+    "entity_type": "neuron_type",
+    "specification": {
+        "type": "izhikevich",
+        "parameters": {
+            "a": {
+                "format": "exact",
+                "value": 0.2
+            },
+            "b": {
+                "format": "exact",
+                "value": 0.2
+            },
+            "c": {
+                "format": "exact",
+                "value": -65.0
+            },
+            "d": {
+                "format": "exact",
+                "value": 8.0
+            },
+            "u": {
+                "format": "uniform",
+                "min_value": -15.0,
+                "max_value": -11.0
+            },
+            "v": {
+                "format": "exact",
+                "min_value": -75.0,
+                "max_value": -55.0
+            },
+            "threshold":{
+                "format": "exact",
+                "value": 30.0
+            }
+        }
+    }
+}
