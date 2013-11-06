@@ -1,5 +1,4 @@
 {
-    "id": "hrqw8e90ghvba80spduf",
     "entity_type": "neuron",
     "specification": {
         "type": "lif",
@@ -56,11 +55,11 @@
             },
             "channels": [
                 {
-                    "id": "gvb127930g6f01gef",
+                    "id": "/channels/k_m_channel.json",
                     "count": 4
                 },
                 {
-                    "id": "8945hg89whfgs8vh9",
+                    "id": "/channels/k_ahp_channel.json",
                     "count": 4
                 }
             ]

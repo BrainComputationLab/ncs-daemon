@@ -1,5 +1,4 @@
 {
-    "id": "hrqw8e90ghvba80spduf",
     "entity_type": "neuron",
     "specification": {
         "type": "izhikevich",

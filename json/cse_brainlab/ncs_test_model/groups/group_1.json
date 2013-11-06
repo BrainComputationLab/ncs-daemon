@@ -1,17 +1,17 @@
 {
-    "entity_type": "model",
-    "name": "BasalGanglia",
+    "entity_type": "group",
+    "group_name": "BasalGanglia",
     "description": "This is an extended description of the model",
-    "author": "Who wrote this model",
+    "author": "Who wrote this group",
     "email": "Author's Email",
     "geometry": {
         "width": 100,
         "height": 200,
         "depth": 300
     },
-    "submodels": [
+    "subgroups": [
         {
-            "id": "mfr9023vnfj834ytnuhf78934y9",
+            "model": "/models/striatum.json"
             "label": "Striatum",
             "location": {
                 "x": 123,
@@ -20,7 +20,7 @@
             }
         },
         {
-            "id": "cj723890hvpaywpe9rhv312",
+            "model": "/models/pallidum.json",
             "label": "Pallidum",
             "location": {
                 "x": 234,
@@ -29,9 +29,9 @@
             }
         }
     ],
-    "cell_groups": [
+    "neuron_groups": [
         {
-            "id": "hc3012gh7r70123ygf001g",
+            "neuron": "/neurons/neuron_type_izh.json",
             "label": "GPe",
             "geometry": {
                 "width": 100,
@@ -45,7 +45,7 @@
             }
         },
         {
-            "id": "vb84910b34hrvpahweuytf",
+            "neuron": "/neurons/neuron_type_lif.json",
             "label": "GPi",
             "geometry": {
                 "width": 100,
@@ -84,21 +84,21 @@
                 "presynaptic": "GPe",
                 "postsynaptic": "GPi",
                 "probability": 0.5,
-                "synapse": "8432ch82374cvqop",
+                "synapse": "/synapse/synapse1.json",
                 "recurrent": false
             },
             {
                 "presynaptic": "GPe:Excitatory_Cells_1",
                 "postsynaptic": "GPx:[Inhibitory]",
                 "probability": 0.5,
-                "synapse": "8432ch82374cvqop",
+                "synapse": "",
                 "recurrent": false
             },
             {
                 "presynaptic": "GPi:[Inhibitory]",
                 "postsynaptic": "GPi:{Excitatory}",
                 "probability": 0.5,
-                "synapse": "8432ch82374cvqop",
+                "synapse": "",
                 "recurrent": false
             }
         }

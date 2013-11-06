@@ -1,13 +1,12 @@
 {
-    "id": "bh190gp97atsd7fga9s",
     "entity_type": "report",
-    "reporting_alias": "GPe:[Excitatory]",
+    "reporting_target": "GPe:[Excitatory]",
+    "target_type": "channels",
     "probability": 0.5,
-    "cell_ordering": "random",
     "frequency": 5,
     "report_type": {
-        "type": "channel_km",
-        "channel": "23hfo9geoaygsidfy9sd"
+        "type": "channel_conductance",
+        "channel": "?"
     },
     "report_method": {
         "method": "file",
