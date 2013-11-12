@@ -1,4 +1,4 @@
-""" Rest resource for a report """
+""" Rest resources """
 
 from flask.ext.restful import Resource
 

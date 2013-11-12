@@ -1,11 +1,13 @@
 """ Runs the Flask server for the REST interface """
+
 from flask import Flask, request, make_response
 from flask.ext.restful import Api
-from ncsdaemon.resources import Report
-from ncsdaemon.UserManager import UserManager
 from jsonschema import validate as validate_json
 from jsonschema.exceptions import ValidationError
-from ncsdaemon.SchemaLoader import SchemaLoader
+
+from ncsdaemon.resources import Report
+from ncsdaemon.users import UserManager
+from ncsdaemon.util import SchemaLoader
 
 API_PREFIX = '/ncs/api'
 
