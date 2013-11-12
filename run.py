@@ -1,5 +1,5 @@
 """ Runs the REST server interface """
-from source import Server
+import ncsdaemon.Server
 
 # Run the server if this file is run directly
 if __name__ == '__main__':

@@ -39,6 +39,7 @@ class UserManager(object):
         self.save_users_file(self.USERS_FILENAME)
 
     def verify_user(self, username, password):
+        """ Verifies that a users password """
         for user in self.users:
             if user.username == username:
                 hashed_password = Crypt.hash_password(password, user.salt)
@@ -47,6 +48,10 @@ class UserManager(object):
                 else:
                     return False
         return False
+
+    def get_user_key(self, username):
+        """ Gets the users key """
+        return self.users[username].key
 
     def save_users_file(self, filename):
         try:

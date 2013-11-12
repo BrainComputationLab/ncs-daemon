@@ -1,0 +1,21 @@
+{
+    "type":"object",
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "name": "login_post",
+    "description": "json schema for user login",
+    "required":true,
+    "properties":{
+        "password": {
+            "type":"string",
+            "description": "Users Password",
+            "id": "http://jsonschema.net/password",
+            "required":true
+        },
+        "username": {
+            "type":"string",
+            "description": "User's username",
+            "id": "http://jsonschema.net/username",
+            "required":true
+        }
+    }
+}
