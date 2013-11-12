@@ -1,7 +1,7 @@
 """ module for user management stuff """
 import json
 import logging
-from ncsdaemon.Crypt import Crypt
+from ncsdaemon.crypt import Crypt
 
 class User(object):
     """ Class that contains data and operations related to a user """
