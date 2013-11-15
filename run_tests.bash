@@ -1,0 +1,1 @@
+nosetests ncsdaemon/tests/*.py

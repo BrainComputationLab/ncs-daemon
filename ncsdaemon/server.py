@@ -4,6 +4,7 @@ from flask import Flask, request
 from flask.ext.restful import Api
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
+import json
 
 from ncsdaemon.resources import ReportResource
 from ncsdaemon.users import UserManager
@@ -22,6 +23,8 @@ def register_routes(app):
     def before_request():
         """ This runs before each request, currently ensures a key is in
         the header for all requests aside from the login request """
+        if request.url_rule == None:
+            return ServerUtils.json_and_status({}, 404)
         if request.path != API_PREFIX + '/login':
             return ServerUtils.json_and_status(
                 ServerUtils.json_message('Authentication required'), 401)
@@ -29,30 +32,44 @@ def register_routes(app):
     @app.route(API_PREFIX + '/login', methods=['POST'])
     def handle_login_request():
         """ Handles requests for auth tokens """
-        login_request = request.get_json()
         schema_loader = SchemaLoader()
         user_manager = UserManager()
+        request_string = request.get_data()
+        js = {}
+        # Ensure the request is valid json
         try:
-            validate(login_request,
-                    schema_loader.get_schema('login_post')
-                    )
+            js = json.loads(request.get_data())
+        except ValueError as e:
+            message = "Invalid request, the request should be a json object"
+            json_message = ServerUtils.json_message(message)
+            return ServerUtils.json_and_status(json_message, 400)
+        # see if the schema works
+        try:
+            validate(js, schema_loader.get_schema('login_post'))
         except ValidationError as e:
-            return ServerUtils.json_and_status(
-                        ServerUtils.json_message(str(e)), 400)
-        valid_user = user_manager.verify_user(login_request['username'],
-                                              login_request['password'])
-        if valid_user:
-            key = user_manager.get_user_key(login_request['username'])
+            message = "Improper json format"
+            json_message = ServerUtils.json_message(message)
+            return ServerUtils.json_and_status(json_message, 400)
+        # check user credentials
+        is_valid = user_manager.verify_user(js['username'], js['password'])
+        # if the credentials are valid, send the key
+        if is_valid:
+            key = user_manager.get_user_key(js['username'])
+            # need a mock user_manager to do this right
+            key = "a_key"
             return ServerUtils.json_and_status({ "key": key }, 200)
-        return ServerUtils.json_and_status(
-            ServerUtils.json_message('Username or password were invalid'), 401)
+        # otherwise send a 'Not Authorized'
+        else:
+            message = "Invalid login credentials"
+            json_message = ServerUtils.json_message(message)
+            return ServerUtils.json_and_status(json_message, 401)
 
 class Server(object):
     """ Rest server class """
 
-    def run(self):
+    def run(self, host, port):
         """ Runs the REST server """
-        self.app.run()
+        self.app.run(host, port)
 
     def __init__(self):
         # Create new application

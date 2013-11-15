@@ -4,4 +4,4 @@ from ncsdaemon.server import Server
 # Run the server if this file is run directly
 if __name__ == '__main__':
     server = Server()
-    server.run()
+    server.run('localhost', 5000)
