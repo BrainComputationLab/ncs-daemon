@@ -6,14 +6,14 @@ from ncsdaemon.crypt import Crypt
 class User(object):
     """ Class that contains data and operations related to a user """
 
-    def __init__(self, username, first_name, last_name, email, salt, hashed_password, api_key):
+    def __init__(self, username, first_name, last_name, email, salt, hashed_password, token):
         self.username = username
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.salt = salt
         self.hashed_password = hashed_password
-        self.api_key = api_key
+        self.token = token
 
     def to_dictionary(self):
         """ Returns the user as a dictionary for easy write to JSON """
@@ -23,7 +23,7 @@ class User(object):
                  'email': self.email,
                  'salt': self.salt,
                  'hashed_password': self.hashed_password,
-                 'apiKey': self.api_key }
+                 'token': self.token}
 
 class UserManager(object):
     """ Class that handles users """
@@ -54,8 +54,8 @@ class UserManager(object):
     def create_user(self, username, first_name, last_name, email, password):
         salt = Crypt.generate_salt()
         hashed_password = Crypt.hash_password(password, salt)
-        api_key = Crypt.generate_api_key()
-        user = User(username, first_name, last_name, email, salt, hashed_password, api_key)
+        token = Crypt.generate_user_token()
+        user = User(username, first_name, last_name, email, salt, hashed_password, token)
         self.users.append(user)
         self.save_users_file(self.USERS_FILENAME)
 
@@ -89,8 +89,17 @@ class UserManager(object):
         users = []
         try:
             for user in user_dict['users']:
-                users.append(User(user['username'], user['first_name'], user['last_name'], user['email'], user['salt'], user['hashed_password']))
+                users.append(User(user['username'],
+                                  user['first_name'],
+                                  user['last_name'],
+                                  user['email'],
+                                  user['salt'],
+                                  user['hashed_password'],
+                                  user['token']))
             return users
         except KeyError:
             logging.error('Attribute validation of users object failed, check the file')
+
+    def get_user_from_token(self, token):
+        pass
 

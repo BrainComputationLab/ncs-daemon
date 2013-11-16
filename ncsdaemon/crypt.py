@@ -11,8 +11,8 @@ class CryptBase(object):
         pass
 
     @classmethod
-    def generate_api_key(cls):
-        """ Generates a random api key """
+    def generate_user_token(cls):
+        """ Generates a random token for users to auth with """
         pass
 
     @classmethod
@@ -33,8 +33,7 @@ class Crypt(CryptBase):
         return os.urandom(8).encode('hex')
 
     @classmethod
-    def generate_api_key(cls):
-        """ Generates a random api key """
+    def generate_user_token(cls):
         return os.urandom(8).encode('hex')
 
     @classmethod
@@ -55,9 +54,8 @@ class CryptDummy(CryptBase):
         return 'abc123'
 
     @classmethod
-    def generate_api_key(cls):
-        """ Generates a random api key """
-        return 'apikey'
+    def generate_user_token(cls):
+        return 'a_token'
 
     @classmethod
     def hash_password(cls, plaintext_password, salt):

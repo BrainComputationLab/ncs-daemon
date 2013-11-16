@@ -23,34 +23,41 @@ class TestAuth(APITestCase):
     def test_not_found(self):
         res = self.app.get(URL_PREFIX + 'gibberish')
         self.assertEqual(res.status_code, 404)
+        js = json.loads(res.get_data())
 
     def test_login_empty_request(self):
         res = self.app.post(URL_PREFIX + '/login', data="")
         self.assertEqual(res.status_code, 400)
+        js = json.loads(res.get_data())
 
     def test_login_bad_request(self):
         res = self.app.post(URL_PREFIX + '/login', data="{fjdkslajs}")
         self.assertEqual(res.status_code, 400)
+        js = json.loads(res.get_data())
 
     def test_login_bad_json(self):
         login_info = {"badproperty": "badvalue"}
         res = self.app.post(URL_PREFIX + '/login', data=json.dumps(login_info))
         self.assertEqual(res.status_code, 400)
+        js = json.loads(res.get_data())
 
     def test_login_bad_user(self):
         login_info = {"username": "badusername", "password": "pass"}
         res = self.app.post(URL_PREFIX + '/login', data=json.dumps(login_info))
         self.assertEqual(res.status_code, 401)
+        js = json.loads(res.get_data())
 
     def test_login_bad_pass(self):
         login_info = {"username": "goodusername", "password": "badpass"}
         res = self.app.post(URL_PREFIX + '/login', data=json.dumps(login_info))
         self.assertEqual(res.status_code, 401)
+        js = json.loads(res.get_data())
 
     def test_login_good(self):
         login_info = {"username": "goodusername", "password": "goodpass"}
         res = self.app.post(URL_PREFIX + '/login', data=json.dumps(login_info))
         self.assertEqual(res.status_code, 401)
+        js = json.loads(res.get_data())
 
 if __name__ == '__main__':
     unittest.main()
