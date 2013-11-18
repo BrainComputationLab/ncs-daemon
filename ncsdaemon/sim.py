@@ -1,5 +1,5 @@
 """ Module for interaction between ncs-daemon and the ncs simulator """
-from ncs import Simulation
+#from ncs import Simulation
 
 class SimBase(object):
     """ Abstract base for the sim object """
@@ -42,8 +42,8 @@ class Sim(SimBase):
         return status
 
     def run(cls):
-        simulation = Simulation()
-        simulation.step(500)
+        #simulation = Simulation()
+        #simulation.step(500)
         info = {
             "status": "running",
             "user": "dtanna",
