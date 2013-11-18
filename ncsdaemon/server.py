@@ -86,7 +86,6 @@ def register_routes(app):
                 return ServerUtils.json_and_status(info, 200)
         if request.method == 'DELETE':
             if status.status == 'running':
-                if
                 pass
             if status.status == 'idle':
                 message = "No simulation is running"
@@ -95,6 +94,7 @@ def register_routes(app):
 
     @app.route(API_PREFIX + '/sim/<simid>', methods=['GET', 'POST', 'DELETE'])
     def handle_prior_simulation(self):
+        pass
 
 class Server(object):
     """ Rest server class """
