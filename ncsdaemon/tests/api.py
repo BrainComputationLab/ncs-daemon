@@ -16,6 +16,8 @@ class APITestCase(unittest.TestCase):
         app = server.app;
         app.testing = True
         self.app = app.test_client()
+        test_token = 'a_token'
+        self.headers = [("token", test_token )]
 
 class TestAuth(APITestCase):
     """ Test the authentication API """
@@ -58,6 +60,19 @@ class TestAuth(APITestCase):
         res = self.app.post(URL_PREFIX + '/login', data=json.dumps(login_info))
         self.assertEqual(res.status_code, 401)
         js = json.loads(res.get_data())
+
+class TestAuthToken(APITestCase):
+    """ Ensure the auth token is required in API requests """
+
+    def test_no_token(self):
+        res = self.app.get(URL_PREFIX + '/sim', data='')
+        self.assertEqual(res.status_code, 401)
+
+    def test_token(self):
+        print self.headers
+        res = self.app.get(URL_PREFIX + '/sim', data='',headers=self.headers)
+        self.assertEqual(res.status_code, 200)
+
 
 if __name__ == '__main__':
     unittest.main()

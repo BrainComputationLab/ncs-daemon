@@ -24,14 +24,19 @@ def register_routes(app):
     def before_request():
         """ This runs before each request, currently ensures a key is in
         the header for all requests aside from the login request """
-        token = request.headers['token']
+        token = None
+        # If the requested URL doesn't match any routes
         if request.url_rule == None:
             message = ServerUtils.json_message("Invalid request path")
             return ServerUtils.json_and_status(message, 404)
-        if token is None and request.path != API_PREFIX + '/login':
-            message = ServerUtils.json_message("Authentication Required")
-            return ServerUtils.json_and_status(message, 401)
-
+        # Try to get the auth token from the header
+        try:
+            token = request.headers['token']
+        # Return an error if they didn't provide an auth token
+        except KeyError:
+            if request.path != API_PREFIX + '/login':
+                message = ServerUtils.json_message("Authentication Required")
+                return ServerUtils.json_and_status(message, 401)
 
     @app.route(API_PREFIX + '/login', methods=['POST'])
     def handle_login_request():
@@ -68,7 +73,8 @@ def register_routes(app):
             return ServerUtils.json_and_status(json_message, 401)
 
     @app.route(API_PREFIX + '/sim', methods=['GET', 'POST', 'DELETE'])
-    def handle_simulation(self):
+    def handle_simulation():
+        return ''
         sim = Sim()
         status = sim.get_status()
         # if requesting info about the simulator
@@ -94,6 +100,7 @@ def register_routes(app):
 
     @app.route(API_PREFIX + '/sim/<simid>', methods=['GET', 'POST', 'DELETE'])
     def handle_prior_simulation(self):
+
         pass
 
 class Server(object):
