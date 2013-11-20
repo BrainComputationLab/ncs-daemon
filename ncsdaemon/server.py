@@ -31,7 +31,7 @@ def register_routes(app):
             return ServerUtils.json_and_status(message, 404)
         # Try to get the auth token from the header
         try:
-            token = request.headers['token']
+            request.token = request.headers['token']
         # Return an error if they didn't provide an auth token
         except KeyError:
             if request.path != API_PREFIX + '/login':
@@ -77,30 +77,37 @@ def register_routes(app):
         return ''
         sim = Sim()
         status = sim.get_status()
+        user_manager = UserManager()
         # if requesting info about the simulator
         if request.method == 'GET':
             return status
         # if they're trying to run the simulator
         if request.method == 'POST':
             # if theres already a sim running
-            if status.status == 'running':
+            if status['status'] == 'running':
                 message = "Simulation currently in progress"
                 json_message = ServerUtils.json_message(message)
                 ServerUtils.json_and_status(json_message, 409)
-            if status.status == 'idle':
+            if status['status'] == 'idle':
                 info = sim.run()
                 return ServerUtils.json_and_status(info, 200)
         if request.method == 'DELETE':
-            if status.status == 'running':
-                pass
-            if status.status == 'idle':
+            if status['status'] == 'running':
+                running_user_token = user_manager.get_user_token(status['user'])
+                if running_user_token == request.token:
+                    res = sim.stop()
+                    ServerUtils.json_and_status(res, 200)
+                else:
+                    message = "You are not authorized to terminate the current simulation"
+                    json_message = ServerUtils.json_message(message)
+                    return ServerUtils.json_and_status(json_message, 401)
+            if status['status'] == 'idle':
                 message = "No simulation is running"
                 json_message = ServerUtils.json_message(message)
                 return ServerUtils.json_and_status(json_message, 409)
 
     @app.route(API_PREFIX + '/sim/<simid>', methods=['GET', 'POST', 'DELETE'])
     def handle_prior_simulation(self):
-
         pass
 
 class Server(object):

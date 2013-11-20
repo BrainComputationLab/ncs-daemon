@@ -70,9 +70,9 @@ class UserManager(object):
                     return False
         return False
 
-    def get_user_key(self, username):
+    def get_user_token(self, username):
         """ Gets the users key """
-        return self.users[username].key
+        return self.users[username].token
 
     def save_users_file(self, filename):
         try:
@@ -101,5 +101,8 @@ class UserManager(object):
             logging.error('Attribute validation of users object failed, check the file')
 
     def get_user_from_token(self, token):
-        pass
+        for user in self.users:
+            if user.token == token:
+                return user
+        raise KeyError()
 

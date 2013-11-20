@@ -4,21 +4,28 @@
 class SimBase(object):
     """ Abstract base for the sim object """
 
-    def get_status(cls):
+    def get_status(self):
         """ Gets the status of the simulator """
         pass
 
-    def run(cls):
+    def run(self):
         """ Tells the simulator to run with the current configureation """
+        pass
+
+    def stop(self):
+        """ Tells the simulator to stop """
         pass
 
 class SimDummy(SimBase):
     """ Dummy sim class for testing """
 
-    def get_status(cls):
+    def get_status(self):
         return { 'status': 'idle' }
 
-    def run(cls):
+    def run(self):
+        pass
+
+    def stop(self):
         pass
 
 class Sim(SimBase):
@@ -26,13 +33,13 @@ class Sim(SimBase):
 
     _instance = None
 
-    def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = super(Sim, cls).__new__(
-                                cls, *args, **kwargs)
-        return cls._instance
+    def __new__(self, *args, **kwargs):
+        if not self._instance:
+            self._instance = super(Sim, self).__new__(
+                                self, *args, **kwargs)
+        return self._instance
 
-    def get_status(cls):
+    def get_status(self):
         status = {
             "status": "running",
             "user": "njordan",
@@ -41,7 +48,7 @@ class Sim(SimBase):
         }
         return status
 
-    def run(cls):
+    def run(self):
         #simulation = Simulation()
         #simulation.step(500)
         info = {
@@ -51,3 +58,13 @@ class Sim(SimBase):
             "sim_id": "fjdklsaj90sjfidja0asdf",
         }
         return info
+
+    def stop(self):
+        info = {
+            "status": "stopped",
+            "user": "dtanna",
+            "started": "11/10/2013 5:30PM PST",
+            "sim_id": "fjdklsaj90sjfidja0asdf",
+        }
+        return info
+

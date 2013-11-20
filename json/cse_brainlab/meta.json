@@ -7,5 +7,6 @@
         }
     ],
     "website": "http://brainlab.cse.unr.edu/",
-    "repository_url": "http://brainlab.cse.unr.edu/modeldb/"
+    "repository_url": "http://brainlab.cse.unr.edu/modeldb/",
+    "prefix": "cse_unr"
 }
