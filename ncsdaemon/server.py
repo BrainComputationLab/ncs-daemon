@@ -54,6 +54,7 @@ def register_routes(app):
         # see if the schema works
         try:
             validate(js, schema_loader.get_schema('login_post'))
+        # if it doesn't pass validation, return a bad request error
         except ValidationError:
             message = "Improper json format"
             json_message = ServerUtils.json_message(message)
@@ -62,7 +63,7 @@ def register_routes(app):
         is_valid = user_manager.verify_user(js['username'], js['password'])
         # if the credentials are valid, send the key
         if is_valid:
-            key = user_manager.get_user_key(js['username'])
+            key = user_manager.get_user_token(js['username'])
             # TODO need a mock user_manager to do this right
             key = "a_key"
             return ServerUtils.json_and_status({ "key": key }, 200)
@@ -88,19 +89,26 @@ def register_routes(app):
                 message = "Simulation currently in progress"
                 json_message = ServerUtils.json_message(message)
                 ServerUtils.json_and_status(json_message, 409)
+            # if theres no sim currently running, start one
             if status['status'] == 'idle':
                 info = sim.run()
                 return ServerUtils.json_and_status(info, 200)
+        # if they're trying to stop a simulation
         if request.method == 'DELETE':
+            # if a sim is running
             if status['status'] == 'running':
+                # get the token of the user running the sim currently
                 running_user_token = user_manager.get_user_token(status['user'])
+                # if it matches the one attempting to delete the token, stop
                 if running_user_token == request.token:
                     res = sim.stop()
                     ServerUtils.json_and_status(res, 200)
+                # otherwise they are not authorized
                 else:
                     message = "You are not authorized to terminate the current simulation"
                     json_message = ServerUtils.json_message(message)
                     return ServerUtils.json_and_status(json_message, 401)
+            # if theres no sim running, return a conflict message
             if status['status'] == 'idle':
                 message = "No simulation is running"
                 json_message = ServerUtils.json_message(message)

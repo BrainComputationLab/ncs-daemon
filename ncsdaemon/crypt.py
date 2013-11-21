@@ -41,6 +41,11 @@ class Crypt(CryptBase):
         """ Hashes a plaintext password and a salt to get a final hashed password """
         return hashlib.sha256(plaintext_password + salt).hexdigest()
 
+    @classmethod
+    def generate_sim_id(cls):
+        """ Generates and ID for a new simulation """
+        return os.urandom(8).encode('hex')
+
 class CryptDummy(CryptBase):
     """ Class that handles cryptographic functions needed by the server """
 
