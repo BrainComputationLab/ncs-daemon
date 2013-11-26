@@ -69,17 +69,15 @@ class TestAuthToken(APITestCase):
         self.assertEqual(res.status_code, 401)
 
     def test_token(self):
-        print self.headers
-        res = self.app.get(URL_PREFIX + '/sim', data='',headers=self.headers)
+        res = self.app.get(URL_PREFIX + '/sim', data='', headers=self.headers)
         self.assertEqual(res.status_code, 200)
 
 class TestSim(APITestCase):
     """ Make sure the sim object works as intended """
 
-    def test_get_status(self):
-        res = self.app.get(URL_PREFIX + '/sim', data='',headers=self.headers)
+    def test_run_sim(self):
+        res = self.app.post(URL_PREFIX + '/sim', data='{}', headers=self.headers)
         self.assertEqual(res.status_code, 200)
-        pass
 
 
 if __name__ == '__main__':

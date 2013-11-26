@@ -10,7 +10,7 @@ from ncsdaemon.resources import ReportResource
 from ncsdaemon.users import UserManager
 from ncsdaemon.util import SchemaLoader
 from ncsdaemon.util import ServerUtils
-from ncsdaemon.sim import Sim
+from ncsdaemon.sim import SimHelper
 
 API_PREFIX = '/ncs/api'
 
@@ -24,6 +24,7 @@ def register_routes(app):
     def before_request():
         """ This runs before each request, currently ensures a key is in
         the header for all requests aside from the login request """
+        user_manager = UserManager()
         token = None
         # If the requested URL doesn't match any routes
         if request.url_rule == None:
@@ -31,12 +32,22 @@ def register_routes(app):
             return ServerUtils.json_and_status(message, 404)
         # Try to get the auth token from the header
         try:
-            request.token = request.headers['token']
+            token = request.headers['token']
         # Return an error if they didn't provide an auth token
         except KeyError:
             if request.path != API_PREFIX + '/login':
                 message = ServerUtils.json_message("Authentication Required")
                 return ServerUtils.json_and_status(message, 401)
+        # check that the token is valid
+        try:
+            user = user_manager.get_user_from_token(token)
+            # add the user to the request object
+            request.user = user
+        # if the token is not valid return a 401
+        except KeyError:
+            message = ServerUtils.json_message("Invalid auth token")
+            return ServerUtils.json_and_status(message, 401)
+
 
     @app.route(API_PREFIX + '/login', methods=['POST'])
     def handle_login_request():
@@ -75,8 +86,8 @@ def register_routes(app):
 
     @app.route(API_PREFIX + '/sim', methods=['GET', 'POST', 'DELETE'])
     def handle_simulation():
-        return ''
-        sim = Sim()
+        """ Method to deal with running/querying/stopping a simulation """
+        sim = SimHelper()
         status = sim.get_status()
         user_manager = UserManager()
         # if requesting info about the simulator
@@ -91,16 +102,15 @@ def register_routes(app):
                 ServerUtils.json_and_status(json_message, 409)
             # if theres no sim currently running, start one
             if status['status'] == 'idle':
-                info = sim.run()
+                # get the user from their token
+                info = sim.run(request.user, None)
                 return ServerUtils.json_and_status(info, 200)
         # if they're trying to stop a simulation
         if request.method == 'DELETE':
             # if a sim is running
             if status['status'] == 'running':
-                # get the token of the user running the sim currently
-                running_user_token = user_manager.get_user_token(status['user'])
-                # if it matches the one attempting to delete the token, stop
-                if running_user_token == request.token:
+                # if the user requesting is the same that ran the sim
+                if status['user'] == request.user.username:
                     res = sim.stop()
                     ServerUtils.json_and_status(res, 200)
                 # otherwise they are not authorized
@@ -115,8 +125,8 @@ def register_routes(app):
                 return ServerUtils.json_and_status(json_message, 409)
 
     @app.route(API_PREFIX + '/sim/<simid>', methods=['GET', 'POST', 'DELETE'])
-    def handle_prior_simulation(self):
-        pass
+    def handle_prior_simulation():
+        return ''
 
 class Server(object):
     """ Rest server class """

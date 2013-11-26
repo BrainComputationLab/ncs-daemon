@@ -1,11 +1,32 @@
 """ Module for interaction between ncs-daemon and the ncs simulator """
-#from ncs import Simulation
+from ncs import Simulation
 import os
 from ncsdaemon.crypt import Crypt
 from datetime import datetime
 import json
+from threading import Thread
 
 SIM_DATA_DIRECTORY = '/var/ncs/sims/'
+
+class SimThread(Thread):
+    """ Thread that contains the running simulation """
+
+    helper = None
+    sim = None
+    step = None
+
+    def __init__(self, helper, sim, step):
+        super(SimThread, self).__init__()
+        self.sim = sim
+        self.step = step
+        self.helper = helper
+
+    def run(self):
+        # Run the simulation
+        self.sim.step(self.step)
+        # Once it's done, change the helper's status
+        self.helper.is_running = False
+
 
 class SimBase(object):
     """ Abstract base for the sim object """
@@ -22,6 +43,7 @@ class SimBase(object):
         """ Tells the simulator to stop """
         pass
 
+
 class SimDummy(SimBase):
     """ Dummy sim class for testing """
 
@@ -34,16 +56,19 @@ class SimDummy(SimBase):
     def stop(self):
         pass
 
-class Sim(SimBase):
+
+class SimHelper(SimBase):
     """ This class handles interaction with the NCS simulator """
 
     _instance = None
-    most_recent_sim_info = None
+    sim_status = None
     is_running = False
+    simulation = None
+    most_recent_sim_info = None
 
     def __new__(self, *args, **kwargs):
         if not self._instance:
-            self._instance = super(Sim, self).__new__(
+            self._instance = super(SimHelper, self).__new__(
                                 self, *args, **kwargs)
         return self._instance
 
@@ -52,13 +77,25 @@ class Sim(SimBase):
             os.makedirs(SIM_DATA_DIRECTORY)
 
     def get_status(self):
-        return self.most_recent_sim_info
+        # if the sim is running, send info about the currently running sim
+        if self.is_running:
+            return self.most_recent_sim_info
+        # otherwise say its idle
+        else:
+            info = {
+                "status": "idle"
+            }
+            return info
 
     def run(self, user, model):
         """ Runs a simulation """
-        # TODO get the sim stuff working
-        #simulation = Simulation()
-        #simulation.step(500)
+        self.simulation = Simulation()
+        if not self.simulation.init([]):
+            info = {
+                "status": "error",
+                "message": "Failed to initialize simulation"
+            }
+            return info
         # generate a new ID for the ism
         sim_id = Crypt.generate_sim_id()
         #create the directory for sim information like reports
@@ -85,12 +122,24 @@ class Sim(SimBase):
             fil.write(json.dumps(meta))
         # store the info as the most recent sim info
         self.most_recent_sim_info = info
+        # create a new thread for the simulation
+        sim_thread = SimThread(self, self.simulation, 5)
+        # start running the simulation
+        sim_thread.start()
+        # set the sim to running
+        self.is_running = True
         return info
 
     def stop(self):
-        #stop sim
-        # TODO get the sim stuff working
-        # set current status to stopped
-        self.most_recent_sim_info['status'] = 'stopped'
-        return self.most_recent_sim_info
+        # if there was a simulation running, shut it down
+        if self.simulation.shutdown():
+            # set current status to stopped
+            self.sim_status['status'] = 'idle'
+            return self.sim_status
+        else:
+            info = {
+                "status": "error",
+                "message": "No simulation was running"
+            }
+            return info
 
