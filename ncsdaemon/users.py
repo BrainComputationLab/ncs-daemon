@@ -71,8 +71,9 @@ class UserManager(object):
         return False
 
     def get_user_token(self, username):
-        """ Gets the users key """
-        return self.users[username].token
+        """ Gets the users token """
+        user = self.get_user_by_username(username)
+        return user.token
 
     def save_users_file(self, filename):
         try:
@@ -105,4 +106,11 @@ class UserManager(object):
             if user.token == token:
                 return user
         raise KeyError()
+
+    def get_user_by_username(self, username):
+        for user in self.users:
+            if user.username == username:
+                return user
+        raise KeyError()
+
 

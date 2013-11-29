@@ -30,6 +30,9 @@ def register_routes(app):
         if request.url_rule == None:
             message = ServerUtils.json_message("Invalid request path")
             return ServerUtils.json_and_status(message, 404)
+        # If they're trying to login, send them through
+        if request.path == API_PREFIX + '/login':
+            return
         # Try to get the auth token from the header
         try:
             token = request.headers['token']
@@ -47,7 +50,6 @@ def register_routes(app):
         except KeyError:
             message = ServerUtils.json_message("Invalid auth token")
             return ServerUtils.json_and_status(message, 401)
-
 
     @app.route(API_PREFIX + '/login', methods=['POST'])
     def handle_login_request():
@@ -72,12 +74,10 @@ def register_routes(app):
             return ServerUtils.json_and_status(json_message, 400)
         # check user credentials
         is_valid = user_manager.verify_user(js['username'], js['password'])
-        # if the credentials are valid, send the key
+        # if the credentials are valid, send the token
         if is_valid:
-            key = user_manager.get_user_token(js['username'])
-            # TODO need a mock user_manager to do this right
-            key = "a_key"
-            return ServerUtils.json_and_status({ "key": key }, 200)
+            token = user_manager.get_user_token(js['username'])
+            return ServerUtils.json_and_status({ "token": token }, 200)
         # otherwise send a 'Not Authorized'
         else:
             message = "Invalid login credentials"
@@ -87,12 +87,12 @@ def register_routes(app):
     @app.route(API_PREFIX + '/sim', methods=['GET', 'POST', 'DELETE'])
     def handle_simulation():
         """ Method to deal with running/querying/stopping a simulation """
+        return ''
         sim = SimHelper()
         status = sim.get_status()
-        user_manager = UserManager()
         # if requesting info about the simulator
         if request.method == 'GET':
-            return status
+            return ServerUtils.json_and_status(status, 200)
         # if they're trying to run the simulator
         if request.method == 'POST':
             # if theres already a sim running
@@ -103,7 +103,7 @@ def register_routes(app):
             # if theres no sim currently running, start one
             if status['status'] == 'idle':
                 # get the user from their token
-                info = sim.run(request.user, None)
+                info = sim.run(request.user.username, None)
                 return ServerUtils.json_and_status(info, 200)
         # if they're trying to stop a simulation
         if request.method == 'DELETE':

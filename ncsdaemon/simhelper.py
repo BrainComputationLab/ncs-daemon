@@ -16,6 +16,7 @@ class SimThread(Thread):
     step = None
 
     def __init__(self, helper, sim, step):
+        # call the superstructor for the Thread class, otherwise demons emerge
         super(SimThread, self).__init__()
         self.sim = sim
         self.step = step
@@ -28,7 +29,7 @@ class SimThread(Thread):
         self.helper.is_running = False
 
 
-class SimBase(object):
+class SimHelperBase(object):
     """ Abstract base for the sim object """
 
     def get_status(self):
@@ -43,21 +44,7 @@ class SimBase(object):
         """ Tells the simulator to stop """
         pass
 
-
-class SimDummy(SimBase):
-    """ Dummy sim class for testing """
-
-    def get_status(self):
-        return { 'status': 'idle' }
-
-    def run(self):
-        pass
-
-    def stop(self):
-        pass
-
-
-class SimHelper(SimBase):
+class SimHelper(SimHelperBase):
     """ This class handles interaction with the NCS simulator """
 
     _instance = None
@@ -77,6 +64,7 @@ class SimHelper(SimBase):
             os.makedirs(SIM_DATA_DIRECTORY)
 
     def get_status(self):
+        """ Get the status of the simulation """
         # if the sim is running, send info about the currently running sim
         if self.is_running:
             return self.most_recent_sim_info
@@ -131,11 +119,13 @@ class SimHelper(SimBase):
         return info
 
     def stop(self):
+        """ Stop the simulation """
         # if there was a simulation running, shut it down
         if self.simulation.shutdown():
             # set current status to stopped
             self.sim_status['status'] = 'idle'
             return self.sim_status
+        # otherwise indicate that
         else:
             info = {
                 "status": "error",
