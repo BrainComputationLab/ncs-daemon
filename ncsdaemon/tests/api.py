@@ -11,13 +11,16 @@ class APITestCase(unittest.TestCase):
     """ Wrapper class for api test cases """
 
     def setUp(self):
+        # Monkey patch the fake simulator
+        import ncs
+        import ncsdaemon.tests.simhelper
+        ncs.Simulator = ncsdaemon.tests.simhelper.FakeSim
+        # Monkey patch the fake user manager
         from ncsdaemon.tests.users import FakeUserManager
         import ncsdaemon.users
         ncsdaemon.users.UserManager = FakeUserManager
         from ncsdaemon.server import Server
-        import ncs
-        import ncsdaemon.tests.simhelper
-        ncs.Simulator = ncsdaemon.tests.simhelper.FakeSim
+        # Create testing variables
         server = Server()
         app = server.app
         app.testing = True

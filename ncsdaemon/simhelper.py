@@ -1,5 +1,5 @@
 """ Module for interaction between ncs-daemon and the ncs simulator """
-from ncs import Simulation
+import ncs
 import os
 from ncsdaemon.crypt import Crypt
 from datetime import datetime
@@ -77,7 +77,7 @@ class SimHelper(SimHelperBase):
 
     def run(self, user, model):
         """ Runs a simulation """
-        self.simulation = Simulation()
+        self.simulation = ncs.Simulation()
         if not self.simulation.init([]):
             info = {
                 "status": "error",
