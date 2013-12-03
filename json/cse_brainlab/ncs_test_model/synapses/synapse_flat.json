@@ -1,0 +1,19 @@
+{
+    "_id": "hfasdhf8shfasdhf8h8hasd8f"
+    "entity_type": "synapse",
+    "entity_name": "synapse_2",
+    "description": "This is an extended description of the entity",
+    "author": "Nathan Jordan",
+    "author_email": "njordan@cse.unr.edu",
+    "specification": {
+        "synapse_type": "ncs",
+        "delay": {
+                "type": "exact",
+                "value": 65.0
+            },
+        "current": {
+                "type": "exact",
+                "value": 65.0
+            }
+    }
+}

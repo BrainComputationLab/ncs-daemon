@@ -1,0 +1,39 @@
+{
+    "_id": "df90sahf0sd9ha8sdhf8dhsa"
+    "entity_type": "channel",
+    "entity_name": "calcium_dependant_1",
+    "description": "This is an extended description of the entity",
+    "author": "Nathan Jordan",
+    "author_email": "njordan@cse.unr.edu",
+    "channel_parameters": {
+        "type": "voltage_gated_ion",
+        "m_initial": {
+                "type": "exact",
+                "value": 65.0
+            },
+        "reversal_potential": {
+                "type": "exact",
+                "value": 65.0
+            },
+        "conductance": {
+                "type": "exact",
+                "value": 65.0
+            },
+        "backwards_rate": {
+                "type": "exact",
+                "value": 65.0
+            },
+        "forward_scale": {
+                "type": "exact",
+                "value": 65.0
+            },
+        "forward_exponent": {
+                "type": "exact",
+                "value": 65.0
+            },
+        "tau_scale": {
+                "type": "exact",
+                "value": 65.0
+            }
+    }
+}

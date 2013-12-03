@@ -1,7 +1,12 @@
 {
-    "id": "asg9v8dfya9ssdcgyf82",
+
+    "_id": "df90sahf0sd9ha8sdhf8dhsa"
     "entity_type": "stimulus",
-    "stimulus_method": "current",
+    "entity_name": "stimulus_1",
+    "description": "This is an extended description of the entity",
+    "author": "Nathan Jordan",
+    "author_email": "njordan@cse.unr.edu",
+    "stimulus_method": "rectangular_current",
     "stimulus_input": {
         "input_type": "network",
         "port": 7070

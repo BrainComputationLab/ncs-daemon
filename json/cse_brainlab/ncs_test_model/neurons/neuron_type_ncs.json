@@ -1,9 +1,13 @@
 {
+    "_id": "df90sahf0sd9ha8sdhf8dhsa"
     "entity_type": "neuron",
+    "entity_name": "BasalGanglia",
+    "description": "This is an extended description of the entity",
+    "author": "Nathan Jordan",
+    "author_email": "njordan@cse.unr.edu",
     "specification": {
-        "type": "lif",
+        "type": "ncs",
         "parameters": {
-            "_comment": "TODO: Figure out these paramers are"
             "spikeshape": [
                 -12,
                 0,
@@ -32,7 +36,6 @@
                 "value": 65.0
             },
             "tau_calcium": {
-                "_comment": "Rename this",
                 "type": "exact",
                 "value": 65.0
             },
@@ -45,7 +48,6 @@
                 "value": 65.0
             },
             "tau_membrane": {
-                "_comment": "Rename this",
                 "type": "exact",
                 "value": 65.0
             },
@@ -55,11 +57,11 @@
             },
             "channels": [
                 {
-                    "id": "/channels/k_m_channel.json",
+                    "channel_id": "kfjdasfj90j90ahs90dhf",
                     "count": 4
                 },
                 {
-                    "id": "/channels/k_ahp_channel.json",
+                    "channel_id": "jf890dash8sdghf89asghdf",
                     "count": 4
                 }
             ]

@@ -1,0 +1,43 @@
+{
+    "_id": "df90sahf0sd9ha8sdhf8dhsa"
+    "entity_type": "channel",
+    "entity_name": "channel_vgi",
+    "description": "This is an extended description of the entity",
+    "author": "Nathan Jordan",
+    "author_email": "njordan@cse.unr.edu",
+    "channel_parameters": {
+        "type": "voltage_gated_ion",
+        "v_half_activ": {
+                "type": "exact",
+                "value": 65.0
+            },
+        "transition_rate": {
+                "type": "exact",
+                "value": 65.0
+            },
+        "activation_slope": {
+                "type": "exact",
+                "value": 65.0
+            },
+        "deactivation_slope": {
+                "type": "exact",
+                "value": 65.0
+            },
+        "equilibrium_slope": {
+                "type": "exact",
+                "value": 65.0
+            },
+        "conductance": {
+                "type": "exact",
+                "value": 65.0
+            },
+        "reversal_potential": {
+                "type": "exact",
+                "value": 65.0
+            },
+        "m_initial": {
+                "type": "exact",
+                "value": 65.0
+            }
+    }
+}
