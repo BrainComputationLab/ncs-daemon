@@ -5,5 +5,9 @@ python:
 install: "pip install -r requirements.txt --use-mirrors"
 # command to run tests
 script: "bash run_tests.bash"
+# no pesky email notifications
 notifications:
   email: false
+# setup environment
+env:
+  - PYTHONPATH="${PYTHONPATH}:${PWD}/ncs"
