@@ -10,4 +10,4 @@ notifications:
   email: false
 # setup environment
 env:
-  - PYTHONPATH="${PYTHONPATH}:${PWD}/ncs"
+  - PYTHONPATH="${PYTHONPATH}:${PWD}/ncs/python"
