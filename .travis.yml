@@ -4,10 +4,13 @@ python:
 # command to install dependencies
 install: "pip install -r requirements.txt --use-mirrors"
 # command to run tests
-script: "bash run_tests.bash"
+script:
+  nosetests --with-coverage --cover-package=ncsdaemon ncsdaemon/tests/*.py
 # no pesky email notifications
 notifications:
   email: false
 # setup environment
 env:
   - PYTHONPATH="${PYTHONPATH}:${PWD}/ncs/python"
+after_success:
+  coveralls

@@ -5,6 +5,7 @@ from ncsdaemon.crypt import Crypt
 from datetime import datetime
 import json
 from threading import Thread
+from ncsdaemon.util import WriteRedirect
 
 SIM_DATA_DIRECTORY = '/var/ncs/sims/'
 
