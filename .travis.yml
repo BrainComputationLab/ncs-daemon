@@ -5,12 +5,16 @@ python:
 install: "pip install -r requirements.txt --use-mirrors"
 # command to run tests
 script:
-  nosetests --with-coverage --cover-package=ncsdaemon ncsdaemon/tests/*.py
+  - git submodule update --init
+  - touch ncs/base/__init__.py ncs/base/pyncs.py
+  - sudo mkdir /var/ncs
+  - sudo chown ${USER}:${USER} /var/ncs
+  - nosetests --with-coverage --cover-package=ncsdaemon src/ncsdaemon/tests/*.py
 # no pesky email notifications
 notifications:
   email: false
 # setup environment
 env:
-  - PYTHONPATH="${PYTHONPATH}:${PWD}/ncs/python"
-after_success:
+  - PYTHONPATH="${PYTHONPATH}:${TRAVIS_BUILD_DIR}/ncs/python:${TRAVIS_BUILD_DIR}/ncs/base:${TRAVIS_BUILD_DIR}/src/ncsdaemon"
+after_script:
   coveralls

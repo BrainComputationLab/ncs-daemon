@@ -10,7 +10,7 @@ from ncsdaemon.resources import ReportResource
 from ncsdaemon.users import UserManager
 from ncsdaemon.util import SchemaLoader
 from ncsdaemon.util import ServerUtils
-from ncsdaemon.sim import SimHelper
+from ncsdaemon.simhelper import SimHelper
 
 API_PREFIX = '/ncs/api'
 
