@@ -1,3 +1,5 @@
+ncs-daemon
+======================================
 .. image:: https://travis-ci.org/BrainComputationLab/ncs-daemon.png?branch=master
         :target: https://travis-ci.org/BrainComputationLab/ncs-daemon
 
