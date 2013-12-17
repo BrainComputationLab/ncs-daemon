@@ -1,6 +1,3 @@
-.. image:: https://pypip.in/d/ncsdaemon/badge.png
-        :target: https://crate.io/packages/ncsdaemon
-
 .. image:: https://travis-ci.org/BrainComputationLab/ncs-daemon.png?branch=master
         :target: https://travis-ci.org/BrainComputationLab/ncs-daemon
 
