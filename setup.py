@@ -1,20 +1,24 @@
 """ ncsdaemon setup script """
 
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(
     name='ncsdaemon',
-    version='0.01prea',
-    packages=['distutils', 'flask', 'flask-restful', 'jsonschema'],
+    version='0.01a',
     url='http://github.com/braincomputationlab/ncs-daemon',
     license='MIT',
     author='Nathan Jordan',
     author_email='natedagreat27274@gmail.com',
     description='A service running on a master node that allows clients to interact with the NCS brain simulator using a restful API',
-    long_description=open('README.md').read() + '\n\n' + open('CHANGELOG.md').read(),
+    long_description=open('README.rst').read() + '\n\n' + open('CHANGELOG.rst').read(),
+    packages=find_packages(),
+    install_requires=['flask', 'flask-restful', 'jsonschema'],
+    entry_points={
+        'console_scripts': [
+            'ncsdaemon = ncsdaemon.console:console_main'
+        ]
+    },
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
-        'Topic :: Software Development :: Testing',
         'Intended Audience :: Science/Research',
         'Intended Audience :: Education',
         'License :: OSI Approved :: MIT License',
@@ -24,7 +28,5 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: Implementation :: PyPy',
-        'Programming Language :: Python :: Implementation :: CPython',
     ],
 )

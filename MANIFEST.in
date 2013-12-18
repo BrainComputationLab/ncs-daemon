@@ -1,0 +1,4 @@
+include setup.py
+recursive-include ncsdaemon/ *.py
+include README.rst
+include CHANGELOG.rst
