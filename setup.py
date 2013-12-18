@@ -11,7 +11,7 @@ setup(
     author_email='natedagreat27274@gmail.com',
     description='A service running on a master node that allows clients to interact with the NCS brain simulator using a restful API',
     long_description=open('README.rst').read() + '\n\n' + open('CHANGELOG.rst').read(),
-    packages=find_packages(),
+    packages=find_packages(exclude=['tests']),
     install_requires=['flask', 'flask-restful', 'jsonschema'],
     entry_points={
         'console_scripts': [
