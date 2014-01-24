@@ -6,7 +6,7 @@
     "author": "Nathan Jordan",
     "author_email": "njordan@cse.unr.edu",
     "channel_parameters": {
-        "type": "voltage_gated_ion",
+        "type": "calcium_dependant",
         "m_initial": {
                 "type": "exact",
                 "value": 65.0
@@ -15,21 +15,25 @@
                 "type": "exact",
                 "value": 65.0
             },
+	"m_power":{
+		"type": "exact",
+		"value": 65.0
+	    },
         "conductance": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "backwards_rate": {
                 "type": "exact",
                 "value": 65.0
             },
         "forward_scale": {
                 "type": "exact",
-                "value": 65.0
+                "value": 40.0
             },
         "forward_exponent": {
                 "type": "exact",
-                "value": 65.0
+                "value": 20.0
+            },
+        "backwards_rate": {
+                "type": "exact",
+                "value": 8.8
             },
         "tau_scale": {
                 "type": "exact",

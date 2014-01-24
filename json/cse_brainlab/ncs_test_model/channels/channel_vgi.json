@@ -7,11 +7,11 @@
     "author_email": "njordan@cse.unr.edu",
     "channel_parameters": {
         "type": "voltage_gated_ion",
-        "v_half_activ": {
+        "v_half": {
                 "type": "exact",
                 "value": 65.0
             },
-        "transition_rate": {
+        "r": {
                 "type": "exact",
                 "value": 65.0
             },
@@ -38,6 +38,10 @@
         "m_initial": {
                 "type": "exact",
                 "value": 65.0
-            }
+            },
+	"m_power": {
+		"type": "exact",
+		"value": 2.0
+	   }
     }
 }
