@@ -26,7 +26,7 @@
                 "min": -23.0,
                 "max": -30.0
             },
-            "initial_calcium": {
+            "calcium": {
                 "type": "normal",
                 "mean": 6.0,
                 "standard_deviation": 0.5
@@ -51,7 +51,7 @@
                 "type": "exact",
                 "value": 65.0
             },
-            "membrane_resistance": {
+            "r_membrane": {
                 "type": "exact",
                 "value": 65.0
             },

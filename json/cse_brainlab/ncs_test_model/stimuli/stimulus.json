@@ -6,11 +6,15 @@
     "description": "This is an extended description of the entity",
     "author": "Nathan Jordan",
     "author_email": "njordan@cse.unr.edu",
-    "stimulus_method": "rectangular_current",
-    "stimulus_input": {
-        "input_type": "network",
-        "port": 7070
-    },
-    "time_start": 612789,
-    "time_end": 1378454
+    "specification": {
+    	"stimulus_method": "rectangular_current",
+    	"stimulus_input": {
+        	"input_type": "network",
+        	"port": 7070
+    	},
+
+   	"time_start": 612789,
+ 	"time_end": 1378454
+	}
+     }
 }
