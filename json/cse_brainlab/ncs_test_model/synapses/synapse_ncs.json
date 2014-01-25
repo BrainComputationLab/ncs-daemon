@@ -7,11 +7,11 @@
     "author_email": "njordan@cse.unr.edu",
     "specification": {
         "synapse_type": "ncs",
-        "efficacy_utilization": {
+        "utilization": {
                 "type": "exact",
                 "value": 65.0
             },
-        "efficacy_redistribution": {
+        "redistribution": {
                 "type": "exact",
                 "value": 65.0
             },
@@ -39,11 +39,11 @@
                 "type": "exact",
                 "value": 65.0
             },
-        "hebbian_a_plus_min": {
+        "a_ltp_minimum": {
                 "type": "exact",
                 "value": 65.0
             },
-        "hebbian_a_minus_min": {
+        "a_ltd_minimum": {
                 "type": "exact",
                 "value": 65.0
             },
@@ -63,7 +63,7 @@
                 "type": "exact",
                 "value": 65.0
             },
-        "synaptic_delay": {
+        "delay": {
                 "type": "exact",
                 "value": 65.0
             }
