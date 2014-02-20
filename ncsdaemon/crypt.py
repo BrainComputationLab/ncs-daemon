@@ -8,33 +8,29 @@ class CryptBase(object):
     @classmethod
     def generate_salt(cls):
         """ Generates a random salt for password encryption """
-        pass
+        raise NotImplementedError
 
     @classmethod
     def generate_user_token(cls):
         """ Generates a random token for users to auth with """
-        pass
+        raise NotImplementedError
 
     @classmethod
     def hash_password(cls, plaintext_password, salt):
         """ Hashes a plaintext password and a salt to get a final hashed password """
-        pass
+        raise NotImplementedError
 
 class Crypt(CryptBase):
     """ Class that handles cryptographic functions needed by the server """
 
     @classmethod
-    def __init__(cls):
-        pass
-
-    @classmethod
     def generate_salt(cls):
         """ Generates a random salt for password encryption """
-        return os.urandom(8).encode('hex')
+        return os.urandom(32).encode('hex')
 
     @classmethod
     def generate_user_token(cls):
-        return os.urandom(8).encode('hex')
+        return os.urandom(32).encode('hex')
 
     @classmethod
     def hash_password(cls, plaintext_password, salt):
@@ -44,14 +40,10 @@ class Crypt(CryptBase):
     @classmethod
     def generate_sim_id(cls):
         """ Generates and ID for a new simulation """
-        return os.urandom(8).encode('hex')
+        return os.urandom(32).encode('hex')
 
 class CryptDummy(CryptBase):
     """ Class that handles cryptographic functions needed by the server """
-
-    @classmethod
-    def __init__(cls):
-        pass
 
     @classmethod
     def generate_salt(cls):
@@ -66,3 +58,8 @@ class CryptDummy(CryptBase):
     def hash_password(cls, plaintext_password, salt):
         """ Hashes a plaintext password and a salt to get a final hashed password """
         return 'password'
+
+    @classmethod
+    def generate_sim_id(cls):
+        """ Generates and ID for a new simulation """
+        return "123"

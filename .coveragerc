@@ -4,3 +4,6 @@ omit =
     */site-packages/nose/*
     *ncs.py
     *pyncs.py
+exclude_lines =
+    pragma: no cover
+    raise NotImplementedError
