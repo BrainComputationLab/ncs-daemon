@@ -11,7 +11,7 @@
             "m_initial": 65.0,
             "reversal_potential": 65.0,
             "m_power": 65.0,
-            "conductance":, 65.0,
+            "conductance": 65.0,
             "forward_scale": 65.0,
             "forward_exponent": 65.0,
             "backwards_rate": 65.0,
