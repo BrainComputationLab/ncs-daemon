@@ -1,71 +1,28 @@
 {
-    "_id": "hfasdhf8shfasdhf8h8hasd8f"
+    "_id": "hfasdhf8shfasdhf8h8hasd8f",
     "entity_type": "synapse",
     "entity_name": "synapse_1",
     "description": "This is an extended description of the entity",
     "author": "Nathan Jordan",
     "author_email": "njordan@cse.unr.edu",
     "specification": {
-        "synapse_type": "ncs",
-        "utilization": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "redistribution": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "last_prefire_time": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "last_postfire_time": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "tau_facilitation": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "tau_depression": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "tau_ltp": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "tau_ltd": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "a_ltp_minimum": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "a_ltd_minimum": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "max_conductance": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "reversal_potential": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "tau_postsynaptic_conductance": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "psg_waveform_duration": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "delay": {
-                "type": "exact",
-                "value": 65.0
-            }
+        "type": "ncs",
+        "parameters":{
+            "utilization": 65.0,
+            "redistribution": 65.0,
+            "last_prefire_time": 65.0,
+            "last_postfire_time": 65.0,
+            "tau_facilitation": 65.0,
+            "tau_depression": 65.0,
+            "tau_ltp": 65.0,
+            "tau_ltd": 65.0,
+            "a_ltp_minimum": 65.0,
+            "a_ltd_minimum": 65.0,
+            "max_conductance": 65.0,
+            "reversal_potential": 65.0,
+            "tau_postsynaptic_conductance": 65.0,
+            "psg_waveform_duration": 65.0,
+            "delay": 65.0
+        }
     }
 }

@@ -8,28 +8,16 @@
     "specification": {
         "type": "hh",
         "parameters": {
-            "threshhold": {
-                "type": "exact",
-                "value": 65.0
-            },
+            "threshhold": 65.0,
             "resting_potential": {
                 "type": "uniform",
                 "min": -23.0,
                 "max": -30.0
             },
-            "capacitance": {
-                "type": "exact",
-                "value": 65.0
-            },
+            "capacitance": 65.0,
             "channels": [
-                {
-                    "channel_id": "kfjdasfj90j90ahs90dhf",
-                    "count": 4
-                },
-                {
-                    "channel_id": "jf890dash8sdghf89asghdf",
-                    "count": 4
-                }
+                "hf892f82hf8023hf032h0fh3209fh2",
+                "80fhdhahifhsifsdiofhiadsfhasja"
             ]
         }
     }

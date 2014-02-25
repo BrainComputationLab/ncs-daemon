@@ -6,6 +6,9 @@ from datetime import datetime
 import json
 from threading import Thread
 from ncsdaemon.util import WriteRedirect
+from ncsdaemon.util import SchemaLoader
+import jsonschema.validate
+from jsonschema.exceptions import ValidationError
 
 SIM_DATA_DIRECTORY = '/var/ncs/sims/'
 
@@ -78,7 +81,15 @@ class SimHelper(SimHelperBase):
 
     def run(self, user, model):
         """ Runs a simulation """
+        # create a new sim object
         self.simulation = ncs.Simulation()
+        # generate the sim stuff
+        errors = ModelHelper.process_model(self.simulation, model)
+        #check for errors
+        if len(errors):
+            # do something here
+            pass
+        # try to init the simulation
         if not self.simulation.init([]):
             info = {
                 "status": "error",
@@ -134,3 +145,56 @@ class SimHelper(SimHelperBase):
             }
             return info
 
+
+class ModelHelper(object):
+
+    @classmethod
+    def process_model(cls, sim, model):
+        # create a list of errors to output if neccessary
+        errors = []
+        # schemaloader
+        schema_loader = SchemaLoader()
+        # see if the schema works
+        try:
+            jsonschema.validate(model,
+                                schema_loader.get_schema('transfer_schema'))
+        # if it doesn't pass validation, return a bad request error
+        except ValidationError:
+            error = "Improper json format"
+        sim_model = model.model
+        neurons = model.neurons
+        synapses = model.synapses
+        stimuli = model.stimuli
+        reports = model.reports
+        # add neurons to sim
+        for neuron in neurons:
+            # TODO: Validate neuron spec
+            pass
+            # Get neuron type from the model
+            neuron_type = neuron['specificaion']['type']
+            spec = neuron['specificaion']['parameters']
+            sim.addNeuron(neuron['_id'], neuron_type, spec)
+        for synapse in synapses:
+            # TODO: Validate synapse spec
+            pass
+            # Get synapse type from the model
+            synapse_type = synapse['specificaion']['type']
+            spec = synapse['specificaion']['parameters']
+            sim.addSynapse(synapse['_id'], synapse_type, spec)
+        for stimulus in stimuli:
+            # TODO: Validate synapse spec
+            pass
+            # Get stimulus type from the model
+            stimulus_type = stimulus['specificaion']['type']
+            spec = stimulus['specificaion']['parameters']
+            sim.addSynapse(stimulus['_id'], stimulus_type, spec)
+
+
+    def create_ncs_normal(cls, params):
+        return ncs.Normal(params['mean'], params['std_dev'])
+
+    def create_ncs_uniform(cls, params):
+        return ncs.Uniform(params['lower_bound'], params['upper_bound'])
+
+    def create_ncs_exact(cls, params):
+        return params['value']

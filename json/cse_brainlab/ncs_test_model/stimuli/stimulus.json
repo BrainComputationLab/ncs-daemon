@@ -1,22 +1,18 @@
 {
-
-    "_id": "df90sahf0sd9ha8sdhf8dhsa"
+    "_id": "df90sahf0sd9ha8sdhf8dhsa",
     "entity_type": "stimulus",
     "entity_name": "stimulus_1",
     "description": "This is an extended description of the entity",
     "author": "Nathan Jordan",
     "author_email": "njordan@cse.unr.edu",
     "specification":{
-	"stimulus_method": "rectangular_current",
-    	"stimulus_input": {
-        	"input_type": "network",
-     	   "port": 7070
-    	},
-    	"amplitude": 2,
- 	"width": 3,
-    	"frequency": 10,
-    	"time_start": 612789,
-    	"time_end": 1378454
+        "type": "rectangular_current",
+        "parameters": {
+            "amplitude": 2,
+            "width": 3,
+            "frequency": 10
+        }
+        "time_start": 612789,
+        "time_end": 1378454
     }
-     
 }

@@ -6,14 +6,10 @@
     "author": "Nathan Jordan",
     "author_email": "njordan@cse.unr.edu",
     "specification": {
-        "synapse_type": "ncs",
-        "delay": {
-                "type": "exact",
-                "value": 65.0
-            },
-        "current": {
-                "type": "exact",
-                "value": 65.0
-            }
+        "type": "flat",
+        "parameters": {
+            "delay": 65.0,
+            "current": 65.0
+        }
     }
 }

@@ -3,17 +3,15 @@
 
     },
     "neurons": [
-        {
-            "id": "fdfsadlfsdafhkjdsahfkjsdahf"
-        },
-        {
-            "id": "f2hf023hf9032hf932hf90hf"
-        }
     ],
     "synapses": [
     ],
     "stimuli": [
     ],
     "reports": [
-    ]
+    ],
+    "meta": {
+        "username": "njordan",
+        "api_key": "hf89dsagfa8sf89sadgf8"
+    }
 }

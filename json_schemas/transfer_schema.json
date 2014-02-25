@@ -1,0 +1,33 @@
+{
+  "type":"object",
+  "$schema":"http://json-schema.org/draft-03/schema",
+  "id":"http://jsonschema.net",
+  "required":false,
+  "properties":{
+    "model":{
+      "type":"object",
+      "id":"http://jsonschema.net/model",
+      "required":true
+    },
+    "neurons":{
+      "type":"array",
+      "id":"http://jsonschema.net/neurons",
+      "required":true
+    },
+    "reports":{
+      "type":"array",
+      "id":"http://jsonschema.net/reports",
+      "required":true
+    },
+    "stimuli":{
+      "type":"array",
+      "id":"http://jsonschema.net/stimuli",
+      "required":true
+    },
+    "synapses":{
+      "type":"array",
+      "id":"http://jsonschema.net/synapses",
+      "required":true
+    }
+  }
+}

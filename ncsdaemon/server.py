@@ -2,7 +2,7 @@
 
 from flask import Flask, request
 from flask.ext.restful import Api
-from jsonschema import validate
+import jsonschema.validate
 from jsonschema.exceptions import ValidationError
 import json
 
@@ -69,7 +69,7 @@ def register_routes(app):
             return ServerUtils.json_and_status(json_message, 400)
         # see if the schema works
         try:
-            validate(js, schema_loader.get_schema('login_post'))
+            jsonschema.validate(js, schema_loader.get_schema('login_post'))
         # if it doesn't pass validation, return a bad request error
         except ValidationError:
             message = "Improper json format"

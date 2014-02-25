@@ -5,38 +5,29 @@
     "description": "This is an extended description of the entity",
     "author": "Nathan Jordan",
     "author_email": "njordan@cse.unr.edu",
-    "channel_parameters": {
+    "specification": {
         "type": "voltage_gated",
-        "conductance": {
-                "type": "exact",
-                "value": 65.0
+        "conductance": 65.0,
+        "reversal_potential": 65.0,
+        "particles": {
+            "x_initial": 5.0,
+            "alpha": {
+                "a": 0.5,
+                "b": 0.01,
+                "c": 1.0,
+                "d": 50.0,
+                "f": -10.0,
+                "h": -1.0
             },
-        "reversal_potential": {
-                "type": "exact",
-                "value": 65.0
+            "beta": {
+                "a": 0.125,
+                "b": 0.0,
+                "c": 0.0,
+                "d": 60.0,
+                "f": 80.0,
+                "h": 1.0
             },
-	"particles": {
-	 
-	       	"x_initial": 5.0,
-		"alpha": {
-			"a": 0.5,
-			"b": 0.01,
-			"c": 1.0,
-			"d": 50.0,
-			"f": -10.0,
-          		"h": -1.0,
-       		 },
-      		"beta": {
-        		"a": 0.125,
-          		"b": 0.0,
-          		"c": 0.0,
-          		"d": 60.0,
-          		"f": 80.0,
-          		"h": 1.0,
-        	},
-        	"power": 4.0,
-      	    }	
-		
-	
+            "power": 4.0
+        }
     }
 }

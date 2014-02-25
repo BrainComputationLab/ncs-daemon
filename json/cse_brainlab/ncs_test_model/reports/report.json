@@ -5,19 +5,23 @@
     "description": "This is an extended description of the entity",
     "author": "Nathan Jordan",
     "author_email": "njordan@cse.unr.edu",
-    "reporting_target": "GPe:[Excitatory]",
-    "target_type": "channels",
-    "probability": 0.5,
-    "frequency": 5,
-    "report_type": {
-        "type": "channel_conductance",
-        "channel": "?"
-    },
-    "report_method": {
-        "method": "file",
-        "filename": "out.txt",
-        "number_format": "ascii"
+    "specification": {
+        "report_target": "cell_alias_1",
+        "probability": 0.5,
+        "frequency": 5,
+        "report_type": {
+            "type": "channel_conductance",
+            "channel_types": [
+                "9fh09dhf90asdhf9dsahf9hasd9f",
+                "gf8dshf80h08ah0shdf8h8ays89d"
+            ]
+        },
+        "report_method": {
+            "method": "file",
+            "filename": "out.txt",
+            "number_format": "ascii"
+        }
+        "time_start": 1234,
+        "time_end": 8901
     }
-    "time_start": 1234,
-    "time_end": 8901
 }
