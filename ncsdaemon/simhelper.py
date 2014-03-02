@@ -161,33 +161,51 @@ class ModelHelper(object):
         # if it doesn't pass validation, return a bad request error
         except ValidationError:
             error = "Improper json format"
-        sim_model = model.model
-        neurons = model.neurons
-        synapses = model.synapses
-        stimuli = model.stimuli
-        reports = model.reports
+        sim_model = model['model']
+        neurons = model['neurons']
+        synapses = model['synapses']
+        stimuli = model['stimuli']
+        reports = model['reports']
         # add neurons to sim
         for neuron in neurons:
             # TODO: Validate neuron spec
             pass
             # Get neuron type from the model
-            neuron_type = neuron['specificaion']['type']
-            spec = neuron['specificaion']['parameters']
+            neuron_type = neuron['specification']['type']
+            spec = neuron['specification']['parameters']
             sim.addNeuron(neuron['_id'], neuron_type, spec)
         for synapse in synapses:
             # TODO: Validate synapse spec
             pass
             # Get synapse type from the model
-            synapse_type = synapse['specificaion']['type']
-            spec = synapse['specificaion']['parameters']
+            synapse_type = synapse['specification']['type']
+            spec = synapse['specification']['parameters']
             sim.addSynapse(synapse['_id'], synapse_type, spec)
         for stimulus in stimuli:
-            # TODO: Validate synapse spec
+            # TODO: Validate stimulus spec
             pass
             # Get stimulus type from the model
-            stimulus_type = stimulus['specificaion']['type']
-            spec = stimulus['specificaion']['parameters']
-            sim.addSynapse(stimulus['_id'], stimulus_type, spec)
+            stimulus_type = stimulus['specification']['type']
+            spec = stimulus['specification']['parameters']
+            prob = stimulus['specification']['probability']
+            time_start = stimulus['specification']['time_start']
+            time_end = stimulus['specification']['time_end']
+            # TODO what to do about groups...
+            sim.addSynapse(stimulus_type, spec, [], prob, time_start, time_end)
+        for report in reports:
+            # TODO: Validate report spec
+            pass
+            # Get report type from the model
+            report_type = report['specification']['report_type']['type']
+            report_target = stimulus['specification']['report_target']
+            target_type = stimulus['specification']['target_type']
+            probability = stimulus['specification']['probability']
+            time_start = stimulus['specification']['time_start']
+            time_end = stimulus['specification']['time_end']
+            # TODO what to do about targets...
+            sim.addReport([], target_type, report_type, probability,
+                          time_start, time_end)
+        # time for the groups :(
 
 
     def create_ncs_normal(cls, params):
