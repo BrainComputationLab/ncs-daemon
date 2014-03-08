@@ -1,12 +1,12 @@
 {
     "_id": "df90sahf0sd9ha8sdhf8dhsa",
     "entity_type": "channel",
-    "entity_name": "channel_vg",
+    "entity_name": "hh_channel_vgi_1",
     "description": "This is an extended description of the entity",
     "author": "Nathan Jordan",
     "author_email": "njordan@cse.unr.edu",
     "specification": {
-        "type": "voltage_gated",
+        "type": "hh_voltage_gated_ion",
         "conductance": 65.0,
         "reversal_potential": 65.0,
         "particles": {

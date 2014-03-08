@@ -6,19 +6,16 @@
     "author": "Nathan Jordan",
     "author_email": "njordan@cse.unr.edu",
     "specification": {
+        "type": "channel_conductance",
         "report_target": "cell_alias_1",
-        "target_type": "neuron",
         "probability": 0.5,
         "frequency": 5,
-        "report_type": {
-            "type": "channel_conductance",
-            "channel_types": [
-                "9fh09dhf90asdhf9dsahf9hasd9f",
-                "gf8dshf80h08ah0shdf8h8ays89d"
-            ]
-        },
-        "report_method": {
-            "method": "file",
+        "channel_types": [
+            "9fh09dhf90asdhf9dsahf9hasd9f",
+            "gf8dshf80h08ah0shdf8h8ays89d"
+        ],
+        "method": {
+            "type": "file",
             "filename": "out.txt",
             "number_format": "ascii"
         },

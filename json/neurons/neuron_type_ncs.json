@@ -1,0 +1,41 @@
+{
+    "_id": "df90sahf0sd9ha8sdhf8dhsa",
+    "entity_type": "neuron",
+    "entity_name": "ncs_neuron_1",
+    "description": "This is an extended description of the entity",
+    "author": "Nathan Jordan",
+    "author_email": "njordan@cse.unr.edu",
+    "specification": {
+        "type": "ncs",
+        "spikeshape": [
+            -12,
+            0,
+            5,
+            60,
+            70,
+            20,
+            23
+        ],
+        "threshhold": 65.0,
+        "resting_potential": {
+            "type": "uniform",
+            "min": -23.0,
+            "max": -30.0
+        },
+        "calcium": {
+            "type": "normal",
+            "mean": 6.0,
+            "standard_deviation": 0.5
+        },
+        "calcium_spike_increment": 65.0,
+        "tau_calcium": 65.0,
+        "leak_reversal_potential": 65.0,
+        "leak_conductance": 65.0,
+        "tau_membrane": 65.0,
+        "r_membrane": 65.0,
+        "channels": [
+            "hf8dshf8asdh80fdsh80fadsh80f",
+            "nfhasf90dsh90fhads90fhassd9a"
+        ]
+    }
+}

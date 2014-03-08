@@ -166,27 +166,26 @@ class ModelHelper(object):
         synapses = model['synapses']
         stimuli = model['stimuli']
         reports = model['reports']
+        groups = model['groups']
+        model = model['model']
         # add neurons to sim
         for neuron in neurons:
             # TODO: Validate neuron spec
             pass
             # Get neuron type from the model
             neuron_type = neuron['specification']['type']
-            spec = neuron['specification']['parameters']
             sim.addNeuron(neuron['_id'], neuron_type, spec)
         for synapse in synapses:
             # TODO: Validate synapse spec
             pass
             # Get synapse type from the model
             synapse_type = synapse['specification']['type']
-            spec = synapse['specification']['parameters']
             sim.addSynapse(synapse['_id'], synapse_type, spec)
         for stimulus in stimuli:
             # TODO: Validate stimulus spec
             pass
             # Get stimulus type from the model
             stimulus_type = stimulus['specification']['type']
-            spec = stimulus['specification']['parameters']
             prob = stimulus['specification']['probability']
             time_start = stimulus['specification']['time_start']
             time_end = stimulus['specification']['time_end']
@@ -198,7 +197,6 @@ class ModelHelper(object):
             # Get report type from the model
             report_type = report['specification']['report_type']['type']
             report_target = stimulus['specification']['report_target']
-            target_type = stimulus['specification']['target_type']
             probability = stimulus['specification']['probability']
             time_start = stimulus['specification']['time_start']
             time_end = stimulus['specification']['time_end']
@@ -206,6 +204,8 @@ class ModelHelper(object):
             sim.addReport([], target_type, report_type, probability,
                           time_start, time_end)
         # time for the groups :(
+        for group in groups:
+            pass
 
 
     def create_ncs_normal(cls, params):

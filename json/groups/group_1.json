@@ -7,27 +7,27 @@
     "author_email": "njordan@cse.unr.edu",
     "specification": {
         "geometry": {
-            "width": 100,
-            "height": 200,
-            "depth": 300
+            "width": 100.0,
+            "height": 200.7,
+            "depth": 300.3
         },
         "subgroups": [
             {
-                "group_id": "sdfh8ahsdf80has0d89fh0as9dhf",
+                "group": "sdfh8ahsdf80has0d89fh0as9dhf",
                 "label": "striatum",
                 "location": {
-                    "x": 123,
-                    "y": 456,
-                    "z": 789
+                    "x": 123.5,
+                    "y": 456.5,
+                    "z": 789.5
                 }
             },
             {
-                "group_id": "hf8as0df8asdhf80ahsd80f",
+                "group": "hf8as0df8asdhf80ahsd80f",
                 "label": "pallidum",
                 "location": {
-                    "x": 234,
-                    "y": 456,
-                    "z": 543
+                    "x": 2354.5,
+                    "y": 456.5,
+                    "z": 543.5
                 }
             }
         ],
@@ -36,28 +36,28 @@
                 "neuron": "hfd80sahs80dhf0shda90fhshdf",
                 "label": "gpe",
                 "geometry": {
-                    "width": 100,
-                    "height": 200,
-                    "depth": 300
+                    "width": 100.4,
+                    "height": 200.7,
+                    "depth": 300.8
                 },
                 "location": {
-                    "x": 234,
-                    "y": 456,
-                    "z": 543
+                    "x": 234.9,
+                    "y": 456.4,
+                    "z": 543.2
                 }
             },
             {
                 "neuron": "hasd890fhas80fhas80dhf",
                 "label": "gpi",
                 "geometry": {
-                    "width": 100,
-                    "height": 200,
-                    "depth": 300
+                    "width": 100.1,
+                    "height": 200.6,
+                    "depth": 300.7
                 },
                 "location": {
-                    "x": 784,
-                    "y": 926,
-                    "z": 999
+                    "x": 784.4,
+                    "y": 926.1,
+                    "z": 999.2
                 }
             }
         ],

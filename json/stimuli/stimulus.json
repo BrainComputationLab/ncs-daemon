@@ -7,11 +7,9 @@
     "author_email": "njordan@cse.unr.edu",
     "specification":{
         "type": "rectangular_current",
-        "parameters": {
-            "amplitude": 2,
-            "width": 3,
-            "frequency": 10
-        },
+        "amplitude": 2,
+        "width": 3,
+        "frequency": 10
         "probability": 0.5,
         "time_start": 612789,
         "time_end": 1378454
