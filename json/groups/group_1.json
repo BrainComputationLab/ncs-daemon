@@ -35,6 +35,7 @@
             {
                 "neuron": "hfd80sahs80dhf0shda90fhshdf",
                 "label": "gpe",
+                "count": 400,
                 "geometry": {
                     "width": 100.4,
                     "height": 200.7,
@@ -48,6 +49,7 @@
             },
             {
                 "neuron": "hasd890fhas80fhas80dhf",
+                "count": 30,
                 "label": "gpi",
                 "geometry": {
                     "width": 100.1,
