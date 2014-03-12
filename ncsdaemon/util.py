@@ -25,7 +25,8 @@ class SchemaLoader(object):
     DIRECTORY = 'json_schemas/'
 
     SCHEMAS = {
-        "login_post": DIRECTORY + 'login_post.json'
+        "login_post": DIRECTORY + 'login_post.json',
+        "transfer_schema": DIRECTORY + 'transfer_schema.json'
     }
 
     def __new__(cls, *args, **kwargs):

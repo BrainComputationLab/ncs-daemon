@@ -1,1 +1,13 @@
-{"users": []}
+{
+    "users": [
+        {
+            "username": "bob",
+            "first_name": "bob",
+            "last_name": "jones",
+            "email": "bob@bob.net",
+            "salt": "123456",
+            "hashed_password": "958d51602bbfbd18b2a084ba848a827c29952bfef170c936419b0922994c0589",
+            "token": "lol"
+        }
+    ]
+}

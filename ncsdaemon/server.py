@@ -2,7 +2,7 @@
 
 from flask import Flask, request
 from flask.ext.restful import Api
-import jsonschema.validate
+from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 import json
 
@@ -15,6 +15,7 @@ from ncsdaemon.simhelper import SimHelper
 API_PREFIX = '/ncs/api'
 
 
+# TODO this may in fact not be necessary
 def register_resources(api):
     api.add_resource(ReportResource)
 
@@ -69,7 +70,7 @@ def register_routes(app):
             return ServerUtils.json_and_status(json_message, 400)
         # see if the schema works
         try:
-            jsonschema.validate(js, schema_loader.get_schema('login_post'))
+            validate(js, schema_loader.get_schema('login_post'))
         # if it doesn't pass validation, return a bad request error
         except ValidationError:
             message = "Improper json format"
@@ -90,25 +91,23 @@ def register_routes(app):
     @app.route(API_PREFIX + '/sim', methods=['GET', 'POST', 'DELETE'])
     def handle_simulation():
         """ Method to deal with running/querying/stopping a simulation """
-        return ''
         sim = SimHelper()
         status = sim.get_status()
         # if requesting info about the simulator
-        if request.method is 'GET':
+        if request.method == 'GET':
             return ServerUtils.json_and_status(status, 200)
         # if they're trying to run the simulator
-        if request.method is 'POST':
+        if request.method == 'POST':
             # if theres already a sim running
-            if status['status'] is 'running':
+            if status['status'] == 'running':
                 message = "Simulation currently in progress"
                 json_message = ServerUtils.json_message(message)
                 ServerUtils.json_and_status(json_message, 409)
             # if theres no sim currently running, start one
-            if status['status'] is 'idle':
+            if status['status'] == 'idle':
                 # get the json model
                 try:
                     js = json.loads(request.get_data())
-                    # TODO: Process the model
                 except ValueError:
                     message = """Invalid request, the request should be a valid
                                 json object"""
@@ -118,11 +117,11 @@ def register_routes(app):
                 info = sim.run(request.user.username, js)
                 return ServerUtils.json_and_status(info, 200)
         # if they're trying to stop a simulation
-        if request.method is 'DELETE':
+        if request.method == 'DELETE':
             # if a sim is running
-            if status['status'] is 'running':
+            if status['status'] == 'running':
                 # if the user requesting is the same that ran the sim
-                if status['user'] is request.user.username:
+                if status['user'] == request.user.username:
                     res = sim.stop()
                     ServerUtils.json_and_status(res, 200)
                 # otherwise they are not authorized
@@ -132,10 +131,11 @@ def register_routes(app):
                     json_message = ServerUtils.json_message(message)
                     return ServerUtils.json_and_status(json_message, 401)
             # if theres no sim running, return a conflict message
-            if status['status'] is 'idle':
+            if status['status'] == 'idle':
                 message = "No simulation is running"
                 json_message = ServerUtils.json_message(message)
                 return ServerUtils.json_and_status(json_message, 409)
+        return 'FUCKEDDDDD'
 
     @app.route(API_PREFIX + '/sim/<simid>', methods=['GET', 'POST', 'DELETE'])
     def handle_prior_simulation():
@@ -160,3 +160,9 @@ class Server(object):
         register_resources(self.api)
         # Register application routes
         register_routes(self.app)
+
+
+
+if __name__ == '__main__':
+    server = Server()
+    server.run('localhost', 8000)

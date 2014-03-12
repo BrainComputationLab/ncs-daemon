@@ -1,7 +1,9 @@
 """ module for user management stuff """
 import json
+import os
 import logging
 from ncsdaemon.crypt import Crypt
+
 
 class User(object):
     """ Class that contains data and operations related to a user """
@@ -25,6 +27,7 @@ class User(object):
                  'hashed_password': self.hashed_password,
                  'token': self.token}
 
+
 class UserManager(object):
     """ Class that handles users """
 
@@ -37,6 +40,7 @@ class UserManager(object):
     def load_users_file(self, filename):
         """ Loads the JSON formatted users file and
         returns a dictionary that contains the data """
+        filename = os.getcwd() + '/' + filename
         try:
             with open(filename) as f:
                 try:
@@ -46,7 +50,7 @@ class UserManager(object):
                     logging.error('Users file not found or poorly formatted')
         except IOError:
             logging.warning('Users file not found, creating new one')
-            user_dict = { 'users': [] }
+            user_dict = {'users': []}
             with open(filename, 'w') as f:
                 f.write(json.dumps(user_dict))
             return user_dict
