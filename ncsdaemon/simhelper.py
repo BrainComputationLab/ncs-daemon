@@ -1,6 +1,7 @@
 """ Module for interaction between ncs-daemon and the ncs simulator """
 import ncs
 import os
+import gc
 from ncsdaemon.crypt import Crypt
 from datetime import datetime
 import json
@@ -15,22 +16,31 @@ SIM_DATA_DIRECTORY = '/var/ncs/sims/'
 class SimThread(Thread):
     """ Thread that contains the running simulation """
 
-    helper = None
-    sim = None
-    step = None
-
-    def __init__(self, helper, sim, step):
+    def __init__(self, helper, sim, max_steps):
         # call the superstructor for the Thread class, otherwise demons emerge
         super(SimThread, self).__init__()
         self.sim = sim
-        self.step = step
         self.helper = helper
+        self.max_steps = max_steps
+        self.step = 0
+        self.helper.is_running = True
 
     def run(self):
-        # Run the simulation
-        self.sim.step(self.step)
+        while self.step <= self.max_steps:
+            # TODO Debugging
+            print "Stepping"
+            # Run the simulation
+            self.sim.step(1)
+            # increment stop counter
+            self.step += 1
+        print "Simulation Complete!"
         # Once it's done, change the helper's status
         self.helper.is_running = False
+        del self.sim
+        # TODO Figure out whats going on here, MPI_INIT is being called twice
+        # for some reason
+        # force the sim to be garbage collected
+        gc.collect()
 
 
 class SimHelperBase(object):
@@ -83,8 +93,10 @@ class SimHelper(SimHelperBase):
         """ Runs a simulation """
         # create a new sim object
         self.simulation = ncs.Simulation()
+        # TODO move this out of here
+        neuron_group_dict = {}
         # generate the sim stuff
-        errors = ModelHelper.process_model(self.simulation, model)
+        errors = ModelHelper.process_model(self.simulation, model, neuron_group_dict)
         #check for errors
         if len(errors):
             # do something here
@@ -97,7 +109,7 @@ class SimHelper(SimHelperBase):
             }
             return info
         # after the init, we can add stims and reports
-        errors += ModelHelper.add_stims_and_reports(self.simulation, model)
+        errors += ModelHelper.add_stims_and_reports(self.simulation, model, neuron_group_dict)
         # generate a new ID for the ism
         sim_id = Crypt.generate_sim_id()
         #create the directory for sim information like reports
@@ -128,8 +140,6 @@ class SimHelper(SimHelperBase):
         sim_thread = SimThread(self, self.simulation, 5)
         # start running the simulation
         sim_thread.start()
-        # set the sim to running
-        self.is_running = True
         return info
 
     def stop(self):
@@ -151,7 +161,7 @@ class SimHelper(SimHelperBase):
 class ModelHelper(object):
 
     @classmethod
-    def process_model(cls, sim, entity_dicts):
+    def process_model(cls, sim, entity_dicts, neuron_group_dict):
         # create a list of errors to output if neccessary
         errors = []
         # schemaloader
@@ -161,7 +171,7 @@ class ModelHelper(object):
             validate(entity_dicts, schema_loader.get_schema('transfer_schema'))
         # if it doesn't pass validation, return a bad request error
         except ValidationError:
-            error = "Improper json format"
+            errors.append("Improper json format")
         # get the lists of entities
         top_group_id = entity_dicts['top_group']
         neurons = entity_dicts['neurons']
@@ -192,19 +202,30 @@ class ModelHelper(object):
         ModelHelper.traverse_groups(top_group,
                                     entity_dicts,
                                     top_group['entity_name'])
-        print "lolz"
+        neuron_groups = entity_dicts['neuron_groups']
+        #print neuron_groups
+        for neuron_group in neuron_groups:
+            neuron_type = neuron_group['neuron']['_id']
+            loc_string = neuron_group['location_string'].encode('ascii', 'ignore')
+            alias = sim.addNeuronGroup(loc_string,
+                                       neuron_group['count'],
+                                       neuron_type.encode('ascii', 'ignore'),
+                                       None
+                                       #neuron_group['geometry']
+                                       )
+            neuron_group_dict[loc_string] = alias
         return errors
 
     @classmethod
     def traverse_groups(cls, group, entity_dicts, location_string):
         spec = group['specification']
-        new_neuron_group = {}
         # if the neuron_groups key doesn't exist in entity_dicts
         if 'neuron_groups' not in entity_dicts:
             # make it an empty list
             entity_dicts['neuron_groups'] = []
         # find the neuron that corresponds to the id in the neuron_group
         for neuron_group in spec['neuron_groups']:
+            new_neuron_group = {}
             # set the parameters
             new_neuron_group['label'] = neuron_group['label']
             new_neuron_group['count'] = neuron_group['count']
@@ -228,8 +249,8 @@ class ModelHelper(object):
                                                 location_string + ':' +
                                                 group['entity_name'])
 
-
-    def add_stims_and_reports(cls, sim, entity_dicts):
+    @classmethod
+    def add_stims_and_reports(cls, sim, entity_dicts, neuron_group_dict):
         errors = []
         stimuli = entity_dicts['stimuli']
         reports = entity_dicts['reports']
@@ -237,13 +258,22 @@ class ModelHelper(object):
             # TODO: Validate stimulus spec
             pass
             # Get stimulus type from the model
-            stimulus_type = stimulus['specification']['stimulus_type']
+            stimulus_type = stimulus['specification']['stimulus_type'].encode('ascii', 'ignore')
             spec = stimulus['specification']
             prob = stimulus['specification']['probability']
             time_start = stimulus['specification']['time_start']
             time_end = stimulus['specification']['time_end']
+            destinations = stimulus['specification']['destinations']
+            neuron_group_list = []
+            for loc_string in destinations:
+                neuron_group_list.append(neuron_group_dict[loc_string])
             # TODO what to do about groups...
-            sim.addStimulus(stimulus_type, spec, [], prob, time_start, time_end)
+            parameters = {}
+            for k, v in spec.iteritems():
+                parameters[k.encode('ascii', 'ignore')] = v
+            del parameters['stimulus_type']
+            del parameters['destinations']
+            sim.addStimulus(stimulus_type, parameters, neuron_group_list, prob, time_start, time_end)
         for report in reports:
             # TODO: Validate report spec
             pass
