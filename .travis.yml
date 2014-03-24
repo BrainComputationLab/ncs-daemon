@@ -9,8 +9,11 @@ script:
   - touch ncs/base/__init__.py ncs/base/pyncs.py
   - sudo mkdir /var/ncs
   - sudo chown ${USER}:${USER} /var/ncs
-  - curl http://npmjs.org/install.sh | sudo sh
-  - sudo npm install -g jsontools
+# - git clone https://github.com/creationix/nvm.git ~/.nvm
+# - source ~/.nvm/nvm.sh
+  - nvm install 0.10
+  - nvm use 0.10
+  - npm install -g jsontools
   - find json -name \*.json -exec json -n -f {} \;
   - nosetests --with-coverage --cover-package=ncsdaemon ncsdaemon/tests/*.py
 # no pesky email notifications
