@@ -9,3 +9,9 @@ ncs-daemon
 
 
 A service running on a master node that allows clients to interact with the NCS brain simulator using a restful API.
+
+
+.. image:: https://d2weczhvl823v0.cloudfront.net/BrainComputationLab/ncs-daemon/trend.png
+   :alt: Bitdeli badge
+   :target: https://bitdeli.com/free
+
