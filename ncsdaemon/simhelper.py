@@ -279,13 +279,14 @@ class ModelHelper(object):
             pass
             # Get report type from the model
             report_type = report['specification']['report_type']
-            report_target = stimulus['specification']['report_target']
+            report_targets = stimulus['specification']['report_targets']
             probability = stimulus['specification']['probability']
             time_start = stimulus['specification']['time_start']
             time_end = stimulus['specification']['time_end']
             # TODO what to do about targets...
-            sim.addReport([], target_type, report_type, probability,
-                          time_start, time_end)
+            rpt = sim.addReport([], "neuron", report_type, probability,
+                                time_start, time_end)
+            print rpt
         return errors
 
 

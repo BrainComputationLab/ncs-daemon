@@ -7,7 +7,9 @@
     "author_email": "njordan@cse.unr.edu",
     "specification": {
         "type": "channel_conductance",
-        "report_target": "cell_alias_1",
+        "report_targets": [
+            "cell_alias_1"
+        ],
         "probability": 0.5,
         "frequency": 5,
         "channel_types": [

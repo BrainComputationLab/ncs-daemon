@@ -1,32 +1,15 @@
 """ Handles cryptography for the server """
+import bcrypt
 import os
-import hashlib
 
-class CryptBase(object):
-    """ Abstract class that outlines the behavior of the Crypt Class """
 
-    @classmethod
-    def generate_salt(cls):
-        """ Generates a random salt for password encryption """
-        raise NotImplementedError
-
-    @classmethod
-    def generate_user_token(cls):
-        """ Generates a random token for users to auth with """
-        raise NotImplementedError
-
-    @classmethod
-    def hash_password(cls, plaintext_password, salt):
-        """ Hashes a plaintext password and a salt to get a final hashed password """
-        raise NotImplementedError
-
-class Crypt(CryptBase):
+class Crypt(object):
     """ Class that handles cryptographic functions needed by the server """
 
     @classmethod
     def generate_salt(cls):
         """ Generates a random salt for password encryption """
-        return os.urandom(32).encode('hex')
+        return bcrypt.gensalt()
 
     @classmethod
     def generate_user_token(cls):
@@ -35,31 +18,9 @@ class Crypt(CryptBase):
     @classmethod
     def hash_password(cls, plaintext_password, salt):
         """ Hashes a plaintext password and a salt to get a final hashed password """
-        return hashlib.sha256(plaintext_password + salt).hexdigest()
+        return bcrypt.hashpw(plaintext_password, salt)
 
     @classmethod
     def generate_sim_id(cls):
         """ Generates and ID for a new simulation """
         return os.urandom(32).encode('hex')
-
-class CryptDummy(CryptBase):
-    """ Class that handles cryptographic functions needed by the server """
-
-    @classmethod
-    def generate_salt(cls):
-        """ Generates a random salt for password encryption """
-        return 'abc123'
-
-    @classmethod
-    def generate_user_token(cls):
-        return 'a_token'
-
-    @classmethod
-    def hash_password(cls, plaintext_password, salt):
-        """ Hashes a plaintext password and a salt to get a final hashed password """
-        return 'password'
-
-    @classmethod
-    def generate_sim_id(cls):
-        """ Generates and ID for a new simulation """
-        return "123"
