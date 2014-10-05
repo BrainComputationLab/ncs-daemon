@@ -1,21 +1,21 @@
-""" module for user management stuff """
-from ncsdaemon.crypt import Crypt
-from ncsdaemon.database import Database
+from __future__ import absolute_import, unicode_literals
+
 import ipaddress
 
+from ncsdaemon.models.user import User
+from ncsdaemon.crypt import Crypt
 
-class UserManager(object):
-    """ Class that handles users """
 
-    def __init__(self):
-        self.db = Database()
+class UserService(object):
+    """Service for managing users."""
 
-    def create_user(self, username, first_name, last_name, email, institution,
+    def create(self, username, first_name, last_name, email, institution,
                     password):
         # check for existing users with that username
-        users = list(Database.User.find({'username': username}))
+        users = list(User.find({'username': username}))
         # if there are raise an exception
         if len(users):
+            # TODO: make a custom exception for this
             raise Exception("User already exists")
         # generate a new cryptographic salt
         salt = Crypt.generate_salt()

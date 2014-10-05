@@ -1,4 +1,6 @@
 flask
-pymongo
-mongokit
+flask-socketio
+flask-uuid
+flask-seasurf
+mongoengine
 jsonschema

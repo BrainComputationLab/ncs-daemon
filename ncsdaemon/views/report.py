@@ -1,9 +1,9 @@
-""" Rest resources """
+from __future__ import absolute_import, unicode_literals
 
 from flask.ext.restful import Resource
 
+
 class ReportResource(Resource):
-    """ ReportResource """
 
     def get(self, report_id):
         pass
