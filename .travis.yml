@@ -5,6 +5,9 @@ python:
 install:
     - "pip install -r requirements.txt"
     - "pip install -r requirements-test.txt"
+# lets add mongo
+services:
+  - mongodb
 # command to run tests
 script: make test
 # no pesky email notifications
