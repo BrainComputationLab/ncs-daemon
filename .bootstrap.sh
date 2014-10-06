@@ -12,17 +12,10 @@ if [ ! -d "logs" ]; then
 fi
 
 # install requirements
-pip install -r requirements-dev.txt
+pip install -r requirements-test.txt
+pip install -r requirements-docs.txt
 pip install -r requirements.txt
 python setup.py install
-
-# install nvm
-#git clone https://github.com/creationix/nvm.git ~/.nvm
-#source ~/.nvm/nvm.sh
-#sudo mkdir /var/ncs
-#nvm install 0.10
-#nvm use 0.10
-#npm install -g jsontools
 
 # update ncs
 git submodule update --init
