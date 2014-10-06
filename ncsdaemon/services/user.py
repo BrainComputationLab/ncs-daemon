@@ -1,47 +1,69 @@
 from __future__ import absolute_import, unicode_literals
 
-import ipaddress
-
 from ncsdaemon.models.user import User
-from ncsdaemon.crypt import Crypt
+from ncsdaemon.util.crypt import Crypt
 
 
 class UserService(object):
     """Service for managing users."""
 
-    def create(self, username, first_name, last_name, email, institution,
-                    password):
-        # check for existing users with that username
-        users = list(User.find({'username': username}))
-        # if there are raise an exception
-        if len(users):
-            # TODO: make a custom exception for this
-            raise Exception("User already exists")
-        # generate a new cryptographic salt
+    @staticmethod
+    def read(username):
+        """Read the user object from the database.
+
+        :param username: The username of the user to be returned.
+        :type username: str
+        """
+        try:
+            return User.objects.get(username=username)
+        # if it can't find it, it's not authentic
+        except User.DoesNotExist:
+            return None
+
+    @staticmethod
+    def create(**kwargs):
+        """Create a new user."""
+        # get the new users parameters
+        username = kwargs.get('username')
+        password = kwargs.get('password')
+        first_name = kwargs.get('first_name')
+        last_name = kwargs.get('last_name')
+        email = kwargs.get('email')
+        institution = kwargs.get('institution')
+        # generate a new salt
         salt = Crypt.generate_salt()
-        # create the new user
-        new_user = Database.User({
-            'username': username,
-            'first_name': first_name,
-            'last_name': last_name,
-            'email': email,
-            'institution': institution,
-            'password': Crypt.hash_password(password, salt),
-            'salt': salt
-        })
-        # save the new user
-        new_user.save()
+        # hash the provided password with a salt
+        password = Crypt.hash_password(password, salt)
+        # create the new user``
+        user = User(
+            username=username,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            institution=institution,
+            salt=salt,
+        )
+        # save them to the database
+        user.save()
 
-    def verify_user(self, username, password):
-        user = Database.User.one({'username': username})
-        if not user:
-            raise Exception("User does not exist")
-        hash_pass = Crypt.hash_password(password, user.salt)
-        return True if hash_pass == user.password else False
+    @staticmethod
+    def authenticate(username, password):
+        """Authenticate a user given a username and plaintext password.
 
-    def validate_token(self, username, token, ip):
-        u = Database.User.one({'username': username, 'token': token, 'ip': ip})
-        return True if u else False
-
-    def get_user_by_username(self, username):
-        return Database.User.one({'username': username})
+        :param username: The username to be authenticated.
+        :type username: str
+        :param password: The password supplied.
+        :type password: str
+        :returns: bool -- If the users credentials are authentic.
+        """
+        # get the user from the database based on their username
+        try:
+            user = User.objects.get(username=username)
+        # if it can't find it, it's not authentic
+        except User.DoesNotExist:
+            return False
+        # hash the password with the salt from the user
+        hashed_pw = Crypt.hash_password(password, user.salt)
+        # return if the passwords match
+        return hashed_pw == user.password

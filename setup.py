@@ -26,4 +26,8 @@ setup(
         "Programming Language :: Python :: 3.2",
         "Programming Language :: Python :: 3.3",
     ],
+    entry_points="""
+        [console_scripts]
+        ncsdaemon=ncsdaemon.app:run
+    """,
 )

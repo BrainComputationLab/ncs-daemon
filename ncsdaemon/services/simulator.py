@@ -12,7 +12,7 @@ SIM_DATA_DIRECTORY = '/var/ncs/sims/'
 
 
 class SimThread(Thread):
-    """ Thread that contains the running simulation """
+    """Thread that contains the running simulation."""
 
     def __init__(self, helper, sim, max_steps):
         # call the superstructor for the Thread class, otherwise demons emerge
@@ -42,7 +42,7 @@ class SimThread(Thread):
 
 
 class SimulatorService(object):
-    """This class handles interaction with the NCS simulator"""
+    """This class handles interaction with the NCS simulator."""
 
     _instance = None
     sim_status = None
@@ -54,20 +54,12 @@ class SimulatorService(object):
         if not os.path.exists(SIM_DATA_DIRECTORY):
             os.makedirs(SIM_DATA_DIRECTORY)
 
-    def get_status(self):
-        """ Get the status of the simulation """
-        # if the sim is running, send info about the currently running sim
-        if self.is_running:
-            return self.most_recent_sim_info
-        # otherwise say its idle
-        else:
-            info = {
-                "status": "idle"
-            }
-            return info
+    def get_info(self):
+        """Get information about the simulator and its state."""
+        return {}
 
     def run(self, user, model):
-        """ Runs a simulation """
+        """Run a simulation."""
         # create a new sim object
         self.simulation = ncs.Simulation()
         # TODO move this out of here
@@ -120,7 +112,7 @@ class SimulatorService(object):
         return info
 
     def stop(self):
-        """ Stop the simulation """
+        """Stop the simulation."""
         # if there was a simulation running, shut it down
         if self.simulation.shutdown():
             # set current status to stopped

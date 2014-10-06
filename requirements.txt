@@ -1,6 +1,11 @@
 flask
 flask-socketio
 flask-uuid
-flask-seasurf
+flask-restful
+flask-basicauth
 mongoengine
 jsonschema
+click
+bcrypt
+ipaddress
+gunicorn
