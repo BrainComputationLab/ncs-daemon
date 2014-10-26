@@ -5,4 +5,12 @@ from flask.ext.restful import Resource
 
 class SimulationResource(Resource):
     """This resource represents the current state of the simulator."""
-    pass
+
+    def get(self, report_id):
+        pass
+
+    def put(self, report_id):
+        pass
+
+    def delete(self, report_id):
+        pass

@@ -7,6 +7,7 @@ RESTful API.
 
 .. toctree::
    api
+   ncsdaemon
    :maxdepth: 2
 
 Indices and tables

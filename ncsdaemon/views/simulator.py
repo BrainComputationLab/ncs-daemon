@@ -17,6 +17,6 @@ class SimulatorResource(Resource):
     def delete(self):
         """Stop the simulator from executing it's current simulation."""
         SimulatorService.stop_simulation()
-        res = jsonify()
+        res = jsonify({})
         res.status_code = 202
         return res

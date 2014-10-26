@@ -1,3 +1,14 @@
 sphinx
 sphinxcontrib-httpdomain
 sphinx_bootstrap_theme
+flask
+flask-socketio
+flask-uuid
+flask-restful
+flask-basicauth
+mongoengine
+jsonschema
+click
+bcrypt
+ipaddress
+gunicorn

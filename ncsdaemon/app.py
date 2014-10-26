@@ -7,7 +7,6 @@ from flask.ext.uuid import FlaskUUID
 from flask.ext.restful import Api
 from flask.ext.basicauth import BasicAuth
 
-from ncsdaemon.views import exception_map
 from ncsdaemon.views.simulator import SimulatorResource
 from ncsdaemon.views.simulation import SimulationResource
 from ncsdaemon.views.report import ReportResource
@@ -23,7 +22,7 @@ app.config['APPLICATION_ROUTE'] = '/ncs/api'
 app.config['BASIC_AUTH_FORCE'] = True
 
 # restful api
-api = Api(app, errors=exception_map)
+api = Api(app)
 
 # we use HTTP basic auth here
 basic_auth = BasicAuth(app)
